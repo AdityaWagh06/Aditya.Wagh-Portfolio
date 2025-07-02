@@ -79,7 +79,7 @@ const Contact = () => {
             Want to collaborate or just say hi?
           </p>
           <a
-            href="mailto:aditya.wagh@gmail.com"
+            href="mailto:adityawagh2525@gmail.com"
             className="inline-block bg-yellow-400 text-black font-semibold px-6 py-2 rounded-full hover:bg-yellow-300 transition"
           >
             Say Hello 👋
