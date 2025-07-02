@@ -14,7 +14,7 @@ const socials = [
   {
     name: "Instagram",
     icon: <Instagram size={20} />,
-    link: "https://instagram.com/yourusername",
+    link: "https://www.instagram.com/_adityawagh_7?igsh=MTh5bndxczl4bGVocg==",
   },
 ];
 
