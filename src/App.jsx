@@ -1,6 +1,7 @@
 import Home from "./pages/Home";
 import Summary from "./pages/Summary";
-import BottomNavbar from "./components/Bottomnavbar";
+import BottomNavbar from "./components/BottomNavbar";
+
 import BlurText from "../Reactbits/BlurText/BlurText";
 import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
