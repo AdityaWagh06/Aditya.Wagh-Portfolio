@@ -1,42 +1,85 @@
+import { useEffect, useState } from "react";
+import { GraduationCap, Briefcase } from "lucide-react";
+
 const Summary = () => {
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMove = (e) => setMouse({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
+
   return (
     <section
-      id="summary"
-      className="min-h-screen w-full bg-black text-gray-200 flex items-center justify-center px-6 py-16"
+      id="About"
+      className="min-h-screen w-full bg-black text-white flex items-center justify-center px-6 py-16 relative overflow-hidden"
     >
-      <div className="max-w-4xl w-full">
-        <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-8 text-center">
-          Summary
-        </h2>
+      {/* Soft cursor-following glow */}
+      <div
+        className="fixed pointer-events-none z-0"
+        style={{
+          left: mouse.x - 120,
+          top: mouse.y - 120,
+          width: 240,
+          height: 240,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 80%)",
+          filter: "blur(32px)",
+          transition: "left 0.1s, top 0.1s",
+        }}
+      />
 
-        <p className="text-lg leading-relaxed tracking-wide">
-          I am <span className="text-white font-semibold">Aditya Wagh</span>, an enthusiastic developer and researcher specializing in{" "}
-          <span className="text-yellow-300 font-medium">Web Development, Android Applications</span>, and{" "}
-          <span className="text-yellow-300 font-medium">Artificial Intelligence</span>. I’m passionate about building real-world systems that enhance accessibility, automation, and user experience.
-          <br /><br />
-          With a strong foundation in both backend and frontend technologies, I’ve built and deployed several intelligent solutions:
-        </p>
+      <div className="max-w-5xl w-full z-10 relative">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Quick Snapshot</h2>
 
-        <ul className="list-disc list-inside mt-4 space-y-2 pl-4 text-gray-300 text-base">
-          <li>
-            <span className="text-yellow-300 font-medium">NeuroQuery</span> – an AI-powered voice assistant that understands user queries and executes SQL commands in real time.
-          </li>
-          <li>
-            <span className="text-yellow-300 font-medium">NewsGenie</span> – a personalized news summarizer and recommender using NLP models like BART.
-          </li>
-          <li>
-            <span className="text-yellow-300 font-medium">Fake News Detection System</span> – a transformer-based model that detects misinformation with over 93% accuracy.
-          </li>
-          <li>
-            <span className="text-yellow-300 font-medium">Facial Emotion Recognition</span> – a deep learning model using CNN + OpenCV for real-time facial expression detection.
-          </li>
-        </ul>
+        {/* Section Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <p className="mt-6 text-lg tracking-wide">
-          I’ve actively participated in <span className="text-white font-semibold">hackathons</span> and contributed to research as a{" "}
-          <span className="text-white font-semibold">co-author</span> on a paper in Facial Emotion Recognition. I’m currently exploring{" "}
-          <span className="text-yellow-300">Generative AI, voice-enabled interfaces, and intelligent automation</span> to develop inclusive and futuristic applications.
-        </p>
+          {/* Education Card */}
+          <div className="bg-neutral-900 border border-white/10 rounded-xl p-6 hover:shadow-yellow-400/10 transition duration-300">
+            <div className="flex items-center gap-2 mb-4">
+              <GraduationCap size={20} className="text-yellow-300" />
+              <h3 className="text-xl font-semibold">Education</h3>
+            </div>
+            <div className="space-y-4 text-sm text-gray-300">
+              <div>
+                <p className="font-medium text-white">B.Tech – CSE (AI & ML)</p>
+                <p>VIIT, Pune • 2022–2026</p>
+                <p className="text-gray-400">CGPA: 8.1</p>
+              </div>
+              <div>
+                <p className="font-medium text-white">HSC – Science</p>
+                <p>Trimurti College, Shrirampur • 2022</p>
+                
+              </div>
+              <div>
+                <p className="font-medium text-white">SSC – Maharashtra Board</p>
+                <p>St. Xavier’s High School, Shrirampur • 2020</p>
+                
+              </div>
+            </div>
+          </div>
+
+          {/* Experience Card */}
+          <div className="bg-neutral-900 border border-white/10 rounded-xl p-6 hover:shadow-yellow-400/10 transition duration-300">
+            <div className="flex items-center gap-2 mb-4">
+              <Briefcase size={20} className="text-yellow-300" />
+              <h3 className="text-xl font-semibold">Experience</h3>
+            </div>
+            <div className="space-y-4 text-sm text-gray-300">
+              <div>
+                <p className="font-medium text-white">AI Intern – BigBuddy Foundation</p>
+                <p>Jan 2025 – May 2025</p>
+                <ul className="list-disc list-inside mt-2 ml-2 space-y-1">
+                  <li>Built an OCR-based text extraction system using Python, Tesseract & OpenAI API</li>
+                  <li>Developed a full-stack MERN platform for structured data management</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );

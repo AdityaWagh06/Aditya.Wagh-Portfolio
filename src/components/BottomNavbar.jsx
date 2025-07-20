@@ -12,16 +12,27 @@ const BottomNavbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "summary", "projects", "skills", "contact"];
+      const sections = ["home", "About", "projects", "skills", "contact"];
+      const offset = 120;
+
+      let closestSection = null;
+      let minDistance = Infinity;
+
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 120 && rect.bottom >= 120) {
-            setActiveSection(id);
-            break;
+          const distance = Math.abs(rect.top - offset);
+
+          if (rect.top <= window.innerHeight && rect.bottom >= 0 && distance < minDistance) {
+            minDistance = distance;
+            closestSection = id;
           }
         }
+      }
+
+      if (closestSection) {
+        setActiveSection(closestSection);
       }
     };
 
@@ -40,9 +51,9 @@ const BottomNavbar = () => {
         />
         <NavItem
           icon={<FileText size={20} />}
-          label="Summary"
-          href="#summary"
-          active={activeSection === "summary"}
+          label="About"
+          href="#About"
+          active={activeSection === "About"}
         />
         <NavItem
           icon={<Briefcase size={20} />}

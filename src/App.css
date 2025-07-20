@@ -1,0 +1,31 @@
+/* Fade-in animation */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+}
+.animate-fade-in.delay-200 {
+  animation-delay: 0.2s;
+}
+.animate-fade-in.delay-300 {
+  animation-delay: 0.3s;
+}
+
+/* Slide-up animation */
+@keyframes slideUp {
+  to { opacity: 1; transform: none; }
+}
+.animate-slide-up {
+  opacity: 0;
+  transform: translateY(32px);
+  animation: slideUp 0.8s forwards;
+}
+
+/* Responsive adjustments for cursor glow */
+@media (max-width: 640px) {
+  .fixed.pointer-events-none.z-0 {
+    display: none;
+  }
+}

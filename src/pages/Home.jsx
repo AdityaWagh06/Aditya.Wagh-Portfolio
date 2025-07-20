@@ -1,85 +1,108 @@
-import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react"; // ✅ added Github icon
-import bgImage from "../assets/batman.jpg";
+import { useEffect, useState } from "react";
+import { Mail, MapPin, Linkedin, Github } from "lucide-react";
 import resumeFile from "../assets/Aditya_Wagh_Resume.pdf";
-import BlurText from "../../Reactbits/BlurText/BlurText";
-
-const handleAnimationComplete = () => {
-  console.log("✅ Animation completed!");
-};
+import profilePic from "../assets/DP.png"; // Add your profile image here
 
 const Home = () => {
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMove = (e) => setMouse({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
+
   return (
     <section
       id="home"
-      className="min-h-screen w-full bg-cover bg-center bg-no-repeat flex items-center justify-center sm:px-6"
-      style={{
-        backgroundImage: `url(${bgImage})`,
-      }}
+      className="min-h-screen w-full bg-black flex items-center justify-center sm:px-6 relative overflow-hidden"
     >
-      <div className="w-full min-h-screen bg-black/70 flex flex-col items-center justify-center px-4 sm:px-6 py-12 relative text-center">
+      {/* Subtle cursor-following glow */}
+      <div
+        className="fixed pointer-events-none z-0"
+        style={{
+          left: mouse.x - 120,
+          top: mouse.y - 120,
+          width: 240,
+          height: 240,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 80%)",
+          filter: "blur(32px)",
+          transition: "left 0.1s, top 0.1s",
+        }}
+      />
+
+      {/* Animated soft background */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-black to-gray-800 animate-gradient-slow opacity-30 blur-2xl" />
+
+      {/* Content */}
+      <div className="w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-12 text-center z-10">
         {/* Badge */}
-        <div className="absolute top-4 left-4 sm:top-6 sm:left-8">
+        <div className="absolute top-4 left-4 sm:top-6 sm:left-8 z-20">
           <span className="inline-block border border-green-400 text-green-300 text-xs font-semibold px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm shadow-sm">
             🟢 Open to work
           </span>
         </div>
 
-        {/* Title & Intro */}
-        <p className="text-yellow-500 font-semibold text-xs sm:text-sm tracking-wider mt-16 sm:mt-0">
-          Data Science | WEB DEV | AIML | Gen AI
+        {/* Profile Image */}
+        <div className="w-44 h-44 rounded-full border-[1.5px] border-white/30 shadow-xl relative group overflow-hidden mb-8">
+          <img
+            src={profilePic}
+            alt="Aditya Wagh"
+            className="w-full h-full object-cover group-hover:scale-105 transition duration-300 ease-in-out"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition duration-300 rounded-full" />
+        </div>
+
+        {/* Title & Tagline */}
+        <p className="text-white text-xs sm:text-sm tracking-wider mb-2 font-light">
+          Data Science | Web Dev | AIML | Gen AI
         </p>
+        <h1 className="text-4xl sm:text-6xl font-bold text-white mb-4">Aditya Wagh</h1>
 
-        <BlurText
-          text="Aditya Wagh"
-          delay={150}
-          animateBy="words"
-          direction="top"
-          onAnimationComplete={handleAnimationComplete}
-          className="text-4xl sm:text-5xl font-bold mb-8 text-white"
-        />
+        {/* Social Icons */}
+        <div className="flex items-center justify-center gap-6 mt-4">
+          <a
+            href="mailto:adityawagh2525@gmail.com"
+            className="p-2 border border-white rounded-full text-white hover:scale-110 hover:border-yellow-400 transition duration-300"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Mail size={20} />
+          </a>
+          <a
+            href="https://linkedin.com/in/aditya-wagh25"
+            className="p-2 border border-white rounded-full text-white hover:scale-110 hover:border-yellow-400 transition duration-300"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Linkedin size={20} />
+          </a>
+          <a
+            href="https://github.com/AdityaWagh06"
+            className="p-2 border border-white rounded-full text-white hover:scale-110 hover:border-yellow-400 transition duration-300"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Github size={20} />
+          </a>
+        </div>
 
-        {/* Contact Info */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-300 mt-8 text-left max-w-xl w-full px-16 sm:px-8">
-          <div className="flex items-center gap-2">
-            <Mail size={18} className="text-yellow-400" />
-            <span>adityawagh2525@gmail.com</span>
-          </div>
+        <p className="text-xs text-gray-400 mt-6">Let’s connect</p>
 
-          <div className="flex items-center gap-2">
-            <Linkedin size={18} className="text-yellow-400" />
-            <a
-              href="http://www.linkedin.com/in/aditya-wagh25"
-              className="hover:underline break-all"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              linkedin.com/in/aditya-wagh
-            </a>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Github size={18} className="text-yellow-400" />
-            <a
-              href="https://github.com/AdityaWagh06"
-              className="hover:underline break-all"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              github.com/aditya-wagh
-            </a>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <MapPin size={18} className="text-yellow-400" />
-            <span>Pune, India</span>
-          </div>
+        {/* Location Info */}
+        <div className="flex items-center gap-2 text-gray-400 text-sm mt-4">
+          <MapPin size={16} className="text-yellow-400" />
+          <span>Pune, India</span>
         </div>
 
         {/* Download Button */}
         <a
           href={resumeFile}
           download
-          className="mt-8 inline-block bg-slate-300 text-black font-semibold px-6 py-2 rounded-full hover:bg-yellow-300 transition text-sm sm:text-base"
+          className="mt-6 inline-block bg-slate-300 text-black font-semibold px-6 py-2 rounded-full hover:bg-yellow-300 transition text-sm sm:text-base"
         >
           Download CV
         </a>
