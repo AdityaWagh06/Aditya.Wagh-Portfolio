@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Mail, MapPin, Linkedin, Github } from "lucide-react";
 import resumeFile from "../assets/Aditya_Wagh_Resume.pdf";
-import profilePic from "../assets/DP.png"; // Add your profile image here
+import profilePic from "../assets/DP.jpg"; // Add your profile image here
 
 const Home = () => {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
