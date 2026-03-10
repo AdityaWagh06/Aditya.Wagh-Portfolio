@@ -33,8 +33,8 @@ export const SITE = {
 export const NAV_LINKS = [
     { label: 'Home',       href: '#top' },
     { label: 'About me',   href: '#about' },
-    { label: 'Services',   href: '#services' },
-    { label: 'My Work',    href: '#work' },
+    { label: 'Skills',     href: '#skills' },
+    { label: 'Projects',   href: '#projects' },
     { label: 'Contact me', href: '#contact' },
 ]
 
@@ -91,34 +91,34 @@ export const ABOUT = {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SERVICES — services section
+// SKILLS — skills section (formerly Services)
 // ─────────────────────────────────────────────────────────────────────────────
-export const SERVICES = {
+export const SKILLS = {
     subtitle: 'From building scalable software to training ML models and writing research papers — here is what I can bring to your team.',
     items: [
         {
             name:        'Software Development',
             icon:        '/assets/mobile-icon.png',
             description: 'Designing and building full-stack applications with React, Node.js, Express.js, Flask, and TailwindCSS backed by MongoDB, MySQL, and Supabase.',
-            link:        '#work',
+            skills:      ['React', 'Node.js', 'Express.js', 'Flask', 'TailwindCSS', 'MongoDB', 'MySQL', 'Supabase', 'REST APIs', 'JavaScript', 'TypeScript', 'HTML / CSS'],
         },
         {
             name:        'Machine Learning & AI',
             icon:        '/assets/web-icon.png',
             description: 'Developing intelligent systems with Scikit-learn, TensorFlow, HuggingFace, and OpenCV — spanning NLP, computer vision, and predictive modelling.',
-            link:        '#work',
+            skills:      ['Scikit-learn', 'TensorFlow', 'Keras', 'HuggingFace', 'OpenCV', 'Pandas', 'NumPy', 'NLP', 'Computer Vision', 'BERT', 'Feature Engineering', 'Predictive Modelling'],
         },
         {
             name:        'GenAI & LLMs',
             icon:        '/assets/ui-icon.png',
             description: 'Building applications powered by large language models, RAG pipelines, BART summarization, and generative AI frameworks.',
-            link:        '#work',
+            skills:      ['OpenAI API', 'LangChain', 'RAG Pipelines', 'BART', 'T5', 'BLIP', 'Prompt Engineering', 'Vector Databases', 'HuggingFace Transformers', 'Generative Models'],
         },
         {
             name:        'Data Science & Research',
             icon:        '/assets/graphics-icon.png',
             description: 'Extracting insights from data, publishing research (4 IEEE papers), and applying statistical methods to solve real-world problems.',
-            link:        '#highlights',
+            skills:      ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Statistical Analysis', 'IEEE Publishing', 'Data Visualization', 'EDA', 'Jupyter Notebooks'],
         },
     ],
 }
@@ -131,28 +131,36 @@ export const WORK = {
     githubUrl: 'https://github.com/AdityaWagh06',
     projects: [
         {
-            name:        'NeuroQuery - NLP to SQL Chatbot',
-            icon:        '/assets/work-1.png',
-            description: 'NLP · Flask · React · 96% Accuracy',
-            link:        'https://github.com/AdityaWagh06',
+            name:               'NeuroQuery - NLP to SQL Chatbot',
+            icon:               '/assets/work-1.png',
+            description:        'NLP · Flask · React · 96% Accuracy',
+            detailedDescription: 'Converts plain English queries into SQL commands using NLP techniques. Achieves 96% accuracy on complex multi-table query translations with schema inference. Built with a Flask backend and a React frontend.',
+            tech:               ['NLP', 'Flask', 'React', 'MySQL', 'Python'],
+            link:               'https://github.com/AdityaWagh06',
         },
         {
-            name:        'NewsGenie - Smart News App',
-            icon:        '/assets/work-2.png',
-            description: 'BART · Supabase · Collaborative Filtering',
-            link:        'https://github.com/AdityaWagh06',
+            name:               'NewsGenie - Smart News App',
+            icon:               '/assets/work-2.png',
+            description:        'BART · Supabase · Collaborative Filtering',
+            detailedDescription: 'AI-powered news aggregator with BART transformer summarization and a collaborative filtering recommendation engine. Delivers personalized feeds stored on Supabase with real-time updates.',
+            tech:               ['BART', 'Supabase', 'React', 'Python', 'ML'],
+            link:               'https://github.com/AdityaWagh06',
         },
         {
-            name:        'Blind Reader App',
-            icon:        '/assets/work-3.png',
-            description: 'BLIP · T5 · Bark TTS · Accessibility',
-            link:        'https://github.com/AdityaWagh06',
+            name:               'Blind Reader App',
+            icon:               '/assets/work-3.png',
+            description:        'BLIP · T5 · Bark TTS · Accessibility',
+            detailedDescription: 'Accessibility app for visually impaired users combining BLIP image captioning, T5 text summarization, and Bark TTS audio output — making digital content fully accessible through AI-powered audio descriptions.',
+            tech:               ['BLIP', 'T5', 'Bark TTS', 'Python', 'AI'],
+            link:               'https://github.com/AdityaWagh06',
         },
         {
-            name:        'OCR-to-Excel Pipeline',
-            icon:        '/assets/work-4.png',
-            description: 'Computer Vision · Python · Automation',
-            link:        'https://github.com/AdityaWagh06',
+            name:               'OCR-to-Excel Pipeline',
+            icon:               '/assets/work-4.png',
+            description:        'Computer Vision · Python · Automation',
+            detailedDescription: 'Automated pipeline that extracts structured data from scanned documents and images using computer vision and OCR. Converts unstructured image text into organized Excel/CSV files, reducing manual data entry by over 90%.',
+            tech:               ['OpenCV', 'Python', 'Tesseract', 'Pandas'],
+            link:               'https://github.com/AdityaWagh06',
         },
     ],
 }

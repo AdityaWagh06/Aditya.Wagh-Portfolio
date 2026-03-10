@@ -2,41 +2,96 @@ import { useState } from 'react'
 import { WORK } from '../content'
 
 export default function Work() {
-    const [activeCard, setActiveCard] = useState(null)
+    const [flipped, setFlipped] = useState(null)
+    const [showAll, setShowAll] = useState(false)
 
-    const work = WORK.projects
+    const visibleProjects = showAll ? WORK.projects : WORK.projects.slice(0, 4)
 
     return (
-        <div id="work" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
+        <div id="projects" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
             <h4 className="text-center mb-2 text-lg font-Ovo">My portfolio</h4>
-            <h2 className="text-center text-3xl sm:text-5xl font-Ovo">My latest work</h2>
+            <h2 className="text-center text-3xl sm:text-5xl font-Ovo">Projects</h2>
             <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo text-sm sm:text-base">{WORK.subtitle}</p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-10 gap-5 dark:text-black">
-                {work.map((item) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-10 gap-5">
+                {visibleProjects.map((item) => (
                     <div
                         key={item.name}
-                        className="aspect-square bg-no-repeat bg-cover bg-center rounded-lg relative cursor-pointer group"
-                        style={{ backgroundImage: `url(${item.icon})` }}
-                        onClick={() => setActiveCard(activeCard === item.name ? null : item.name)}
+                        className="aspect-square cursor-pointer select-none"
+                        style={{ perspective: '1000px' }}
+                        onClick={() => setFlipped(flipped === item.name ? null : item.name)}
                     >
-                        <div className={`bg-white w-10/12 rounded-md absolute left-1/2 -translate-x-1/2 py-2.5 sm:py-3 px-3 sm:px-5 flex items-center justify-between duration-500 ${activeCard === item.name ? 'bottom-7' : 'bottom-4 sm:bottom-5 group-hover:bottom-7'}`}>
-                            <div className="min-w-0 flex-1 mr-2">
-                                <h2 className="font-semibold text-sm sm:text-base truncate">{item.name}</h2>
-                                <p className="text-xs sm:text-sm text-gray-700 truncate">{item.description}</p>
+                        <div
+                            className="relative w-full h-full"
+                            style={{
+                                transformStyle: 'preserve-3d',
+                                transition: 'transform 0.6s ease',
+                                transform: flipped === item.name ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                            }}
+                        >
+                            {/* Front face */}
+                            <div
+                                className="absolute inset-0 bg-no-repeat bg-cover bg-center rounded-lg overflow-hidden"
+                                style={{
+                                    backgroundImage: `url(${item.icon})`,
+                                    backfaceVisibility: 'hidden',
+                                    WebkitBackfaceVisibility: 'hidden',
+                                }}
+                            >
+                                <div className="absolute bottom-0 left-0 right-0 bg-white/90 dark:bg-black/80 backdrop-blur-sm rounded-b-lg px-4 py-3">
+                                    <h2 className="font-semibold text-sm dark:text-white truncate">{item.name}</h2>
+                                    <p className="text-xs text-gray-600 dark:text-gray-300 truncate">{item.description}</p>
+                                </div>
+                                <div className="absolute top-3 right-3 bg-black/40 text-white text-[10px] px-2 py-1 rounded-full">
+                                    Tap to flip
+                                </div>
                             </div>
-                            <a href={item.link} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="border rounded-full border-black w-9 aspect-square flex items-center justify-center shadow-[2px_2px_0_#000] group-hover:bg-lime-300 transition">
-                                <img src="./assets/send-icon.png" alt="" className="w-5" />
-                            </a>
+
+                            {/* Back face */}
+                            <div
+                                className="absolute inset-0 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-700 dark:from-purple-900 dark:to-indigo-900 p-5 flex flex-col justify-between"
+                                style={{
+                                    backfaceVisibility: 'hidden',
+                                    WebkitBackfaceVisibility: 'hidden',
+                                    transform: 'rotateY(180deg)',
+                                }}
+                            >
+                                <div>
+                                    <h3 className="text-white font-bold text-sm sm:text-base mb-3 leading-snug">{item.name}</h3>
+                                    <p className="text-purple-100 text-xs sm:text-sm leading-relaxed line-clamp-5">{item.detailedDescription}</p>
+                                </div>
+                                <div className="flex items-center justify-between gap-2 mt-3">
+                                    <div className="flex flex-wrap gap-1">
+                                        {item.tech?.slice(0, 3).map(t => (
+                                            <span key={t} className="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full">{t}</span>
+                                        ))}
+                                    </div>
+                                    <a
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={e => e.stopPropagation()}
+                                        className="shrink-0 text-xs text-white/80 hover:text-white underline underline-offset-2"
+                                    >
+                                        GitHub →
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
-            <a href={WORK.githubUrl} target="_blank" rel="noopener noreferrer" className="w-max flex items-center justify-center gap-2 text-gray-700 border border-gray-300 dark:border-white/25 hover:bg-slate-100/70 dark:hover:bg-darkHover rounded-full py-2 px-6 sm:px-8 mx-auto my-10 sm:my-20 duration-300 dark:text-white text-sm sm:text-base">
-                Show more
-                <img src="./assets/right-arrow-bold.png" alt="" className="w-4 dark:hidden" />
-                <img src="./assets/right-arrow-bold-dark.png" alt="" className="w-4 hidden dark:block" />
-            </a>
+
+            {WORK.projects.length > 4 && (
+                <button
+                    onClick={() => setShowAll(!showAll)}
+                    className="w-max flex items-center justify-center gap-2 text-gray-700 border border-gray-300 dark:border-white/25 hover:bg-slate-100/70 dark:hover:bg-darkHover rounded-full py-2 px-6 sm:px-8 mx-auto my-10 sm:my-20 duration-300 dark:text-white text-sm sm:text-base"
+                >
+                    {showAll ? 'Show less' : 'Show more'}
+                    <img src="./assets/right-arrow-bold.png" alt="" className="w-4 dark:hidden" />
+                    <img src="./assets/right-arrow-bold-dark.png" alt="" className="w-4 hidden dark:block" />
+                </button>
+            )}
         </div>
     )
 }
