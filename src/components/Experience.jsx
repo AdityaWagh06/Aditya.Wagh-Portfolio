@@ -1,127 +1,205 @@
 import { useRef, useEffect, useState } from 'react'
-import { EXPERIENCE } from '../content'
+import { EXPERIENCE, HEADER } from '../content'
 
-function useInView(threshold = 0.2) {
-    const ref = useRef(null)
-    const [inView, setInView] = useState(false)
-    useEffect(() => {
-        const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true) }, { threshold })
-        if (ref.current) obs.observe(ref.current)
-        return () => obs.disconnect()
-    }, [threshold])
-    return [ref, inView]
-}
+// ── inline SVG icons ─────────────────────────────────────────────────────────
+const MapPin = () => (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 shrink-0">
+        <path d="M12 2a7 7 0 0 0-7 7c0 4.9 7 13 7 13s7-8.1 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
+    </svg>
+)
+const Briefcase = () => (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 shrink-0">
+        <path d="M20 7h-3V6a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3v1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2ZM10 6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1h-4V6Z"/>
+    </svg>
+)
 
-function ExperienceCard({ item, index }) {
-    const [ref, inView] = useInView(0.15)
-    const isLeft = index % 2 === 0
-
-    return (
-        <div
-            ref={ref}
-            className={`relative flex items-start gap-0 w-full
-                ${isLeft ? 'flex-row' : 'flex-row-reverse'}
-                transition-all duration-700 ease-out
-                ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-        >
-            {/* Card — takes 45% on each side */}
-            <div className={`w-[calc(50%-28px)] ${isLeft ? 'pr-0 text-right' : 'pl-0 text-left'}`}>
-                <div className={`inline-block w-full rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0d0d0d] shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden`}>
-                    {/* Gradient top bar */}
-                    <div className={`h-1.5 w-full bg-gradient-to-r ${item.color}`} />
-                    <div className="p-5 sm:p-6">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">{item.period}</span>
-                        <h3 className="text-base sm:text-lg font-bold font-Ovo dark:text-white mt-1">{item.role}</h3>
-                        <p className={`text-sm font-semibold bg-gradient-to-r ${item.color} bg-clip-text text-transparent mb-4`}>{item.company}</p>
-                        <ul className={`space-y-2 ${isLeft ? 'text-right' : 'text-left'}`}>
-                            {item.points.map((pt, i) => (
-                                <li key={i} className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                                    {pt}
-                                </li>
-                            ))}
-                        </ul>
-                        <div className={`flex flex-wrap gap-1.5 mt-4 ${isLeft ? 'justify-end' : 'justify-start'}`}>
-                            {item.tags.map(t => (
-                                <span key={t} className={`px-2.5 py-1 rounded-full text-[11px] font-medium bg-gradient-to-r ${item.color} bg-opacity-10 text-white bg-clip-border border border-white/10`}
-                                    style={{ background: 'rgba(139,92,246,0.12)', color: 'inherit' }}>
-                                    <span className={`bg-gradient-to-r ${item.color} bg-clip-text text-transparent font-semibold`}>{t}</span>
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Centre spine — dot + line */}
-            <div className="relative flex flex-col items-center w-14 shrink-0 self-stretch">
-                {/* Vertical line segment */}
-                <div className="absolute inset-0 flex justify-center">
-                    <div className="w-px bg-gray-200 dark:bg-white/10 h-full" />
-                </div>
-                {/* Dot */}
-                <div className={`relative z-10 mt-5 w-5 h-5 rounded-full ${item.dot} ring-4 ring-white dark:ring-[#111] shadow-lg`} />
-            </div>
-
-            {/* Empty spacer on the other side */}
-            <div className="w-[calc(50%-28px)]" />
-        </div>
-    )
-}
-
+// ── scroll-driven animated timeline ─────────────────────────────────────────
 export default function Experience() {
+    const containerRef = useRef(null)
+    const [fillPx, setFillPx] = useState(0)
+    const [totalH, setTotalH] = useState(0)
+
+    useEffect(() => {
+        const onScroll = () => {
+            if (!containerRef.current) return
+            const el   = containerRef.current
+            const rect = el.getBoundingClientRect()
+            const h    = el.offsetHeight
+            setTotalH(h)
+            // fill starts when section top crosses 60 % down the viewport,
+            // completes when section scrolls fully past that point
+            const scrolled = window.innerHeight * 0.6 - rect.top
+            setFillPx(Math.min(h, Math.max(0, scrolled)))
+        }
+        window.addEventListener('scroll', onScroll, { passive: true })
+        onScroll()
+        return () => window.removeEventListener('scroll', onScroll)
+    }, [])
+
+    // keep dot centre inside the container bounds
+    const dotCY = Math.min(totalH - 22, Math.max(22, fillPx))
+
     return (
-        <div id="experience" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
-            <h4 className="text-center mb-2 text-lg font-Ovo">Where I've worked</h4>
-            <h2 className="text-center text-3xl sm:text-5xl font-Ovo">Experience</h2>
-            <p className="text-center max-w-2xl mx-auto mt-5 mb-16 font-Ovo text-sm sm:text-base">
+        <section
+            id="experience"
+            className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-20 scroll-mt-20"
+        >
+            {/* heading */}
+            <h4 className="text-center font-Ovo text-lg mb-2 text-gray-500 dark:text-gray-400">
+                Where I've worked
+            </h4>
+            <h2 className="text-center font-Ovo text-3xl sm:text-5xl dark:text-white">
+                Experience
+            </h2>
+            <p className="text-center max-w-2xl mx-auto mt-5 mb-20 font-Ovo text-sm sm:text-base text-gray-600 dark:text-gray-400">
                 A journey through my professional roles — research, development, and real-world impact.
             </p>
 
-            {/* Timeline container */}
-            <div className="relative hidden sm:block">
-                {/* Full-height spine */}
-                <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gray-200 dark:bg-white/10" />
+            {/* ══ DESKTOP — 3-column timeline ══════════════════════════════════
+                [left: company info] │ [animated spine] │ [right: role detail]
+            ══════════════════════════════════════════════════════════════════ */}
+            <div ref={containerRef} className="relative hidden sm:block">
 
-                <div className="flex flex-col gap-10">
+                {/* grey full-height background line */}
+                <div className="absolute top-0 bottom-0 left-[260px] w-px bg-gray-200 dark:bg-white/10 pointer-events-none" />
+
+                {/* red scroll-progress fill */}
+                <div
+                    className="absolute top-0 left-[260px] w-[2px] bg-gradient-to-b from-rose-500 to-rose-400 pointer-events-none"
+                    style={{ height: fillPx }}
+                />
+
+                {/* moving avatar dot — travels with scroll */}
+                <div
+                    className="absolute left-[260px] -translate-x-1/2
+                               w-[44px] h-[44px] rounded-full overflow-hidden
+                               ring-[3px] ring-rose-500
+                               shadow-[0_0_18px_5px_rgba(244,63,94,0.35)]
+                               pointer-events-none z-20"
+                    style={{ top: dotCY - 22 }}
+                >
+                    <img
+                        src={HEADER.profileImg}
+                        alt="Aditya"
+                        className="w-full h-full object-cover"
+                    />
+                </div>
+
+                {/* experience entries */}
+                <div className="flex flex-col gap-16 pb-8">
                     {EXPERIENCE.map((item, i) => (
-                        <ExperienceCard key={item.company} item={item} index={i} />
-                    ))}
-                </div>
+                        <div key={i} className="flex items-start">
 
-                {/* End cap dot */}
-                <div className="flex justify-center mt-8">
-                    <div className="w-3 h-3 rounded-full bg-gray-300 dark:bg-white/20 ring-4 ring-white dark:ring-[#111]" />
-                </div>
-            </div>
+                            {/* ── left: company meta ── */}
+                            <div className="w-[252px] pr-10 shrink-0 text-right">
+                                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gray-400 dark:text-gray-500 mb-2">
+                                    {item.period}
+                                </p>
+                                <h3 className={`text-xl font-bold italic leading-tight bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
+                                    {item.company}
+                                </h3>
+                                {item.location && (
+                                    <div className="flex items-center justify-end gap-1.5 mt-2 text-[11px] text-gray-500 dark:text-gray-500">
+                                        <MapPin /> {item.location}
+                                    </div>
+                                )}
+                                {item.type && (
+                                    <div className="flex items-center justify-end gap-1.5 mt-1 text-[11px] text-gray-500 dark:text-gray-500">
+                                        <Briefcase /> {item.type}
+                                    </div>
+                                )}
+                            </div>
 
-            {/* Mobile: single column stacked cards */}
-            <div className="sm:hidden flex flex-col gap-6">
-                {EXPERIENCE.map((item, i) => {
-                    const [ref, inView] = [useRef(null), true] // always visible on mobile
-                    return (
-                        <div key={item.company} className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0d0d0d] shadow-sm overflow-hidden">
-                            <div className={`h-1.5 w-full bg-gradient-to-r ${item.color}`} />
-                            <div className="p-5">
-                                <span className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">{item.period}</span>
-                                <h3 className="text-base font-bold font-Ovo dark:text-white mt-1">{item.role}</h3>
-                                <p className={`text-sm font-semibold bg-gradient-to-r ${item.color} bg-clip-text text-transparent mb-4`}>{item.company}</p>
-                                <ul className="space-y-2">
+                            {/* ── right: role details ── */}
+                            <div className="flex-1 pl-14">
+                                <h4 className="text-xl sm:text-2xl font-bold font-Ovo dark:text-white mb-4">
+                                    {item.role}
+                                </h4>
+                                <div className="space-y-3">
                                     {item.points.map((pt, j) => (
-                                        <li key={j} className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{pt}</li>
+                                        <p key={j} className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                                            {pt}
+                                        </p>
                                     ))}
-                                </ul>
-                                <div className="flex flex-wrap gap-1.5 mt-4">
+                                </div>
+                                <div className="flex flex-wrap gap-2 mt-5">
                                     {item.tags.map(t => (
-                                        <span key={t} className="px-2.5 py-1 rounded-full text-[11px] border border-gray-200 dark:border-white/10">
-                                            <span className={`bg-gradient-to-r ${item.color} bg-clip-text text-transparent font-semibold`}>{t}</span>
+                                        <span
+                                            key={t}
+                                            className="px-3 py-1 rounded-full text-[11px] font-medium
+                                                       border border-gray-200 dark:border-white/15
+                                                       text-gray-600 dark:text-gray-300
+                                                       bg-gray-50/80 dark:bg-white/5"
+                                        >
+                                            {t}
                                         </span>
                                     ))}
                                 </div>
                             </div>
                         </div>
-                    )
-                })}
+                    ))}
+                </div>
+
+                {/* end-cap dot */}
+                <div
+                    className="absolute left-[260px] -translate-x-1/2 bottom-0
+                               w-2.5 h-2.5 rounded-full
+                               bg-gray-300 dark:bg-white/20
+                               ring-4 ring-white dark:ring-[#111]"
+                />
             </div>
-        </div>
+
+            {/* ══ MOBILE — stacked cards (no spine) ═════════════════════════ */}
+            <div className="sm:hidden flex flex-col gap-6">
+                {EXPERIENCE.map((item, i) => (
+                    <div
+                        key={i}
+                        className="rounded-2xl border border-gray-200 dark:border-white/10
+                                   bg-white dark:bg-[#0d0d0d] shadow-sm overflow-hidden"
+                    >
+                        <div className={`h-1.5 w-full bg-gradient-to-r ${item.color}`} />
+                        <div className="p-5">
+                            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-1">
+                                {item.period}
+                            </p>
+                            <h3 className={`text-lg font-bold italic bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
+                                {item.company}
+                            </h3>
+                            {item.location && (
+                                <div className="flex items-center gap-1.5 mt-1 text-[11px] text-gray-500">
+                                    <MapPin /> {item.location}
+                                </div>
+                            )}
+                            {item.type && (
+                                <div className="flex items-center gap-1.5 mt-0.5 mb-3 text-[11px] text-gray-500">
+                                    <Briefcase /> {item.type}
+                                </div>
+                            )}
+                            <h4 className="text-base font-bold dark:text-white mt-3 mb-3">{item.role}</h4>
+                            <div className="space-y-2">
+                                {item.points.map((pt, j) => (
+                                    <p key={j} className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                                        {pt}
+                                    </p>
+                                ))}
+                            </div>
+                            <div className="flex flex-wrap gap-1.5 mt-4">
+                                {item.tags.map(t => (
+                                    <span
+                                        key={t}
+                                        className="px-2.5 py-1 rounded-full text-[10px] font-medium
+                                                   border border-gray-200 dark:border-white/10"
+                                    >
+                                        <span className={`bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
+                                            {t}
+                                        </span>
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
     )
 }

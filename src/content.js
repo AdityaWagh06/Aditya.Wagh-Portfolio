@@ -236,7 +236,9 @@ export const EXPERIENCE = [
     {
         role:     'Research Intern',
         company:  'IIT Bombay – FOSSEE',
-        period:   'Dec 2025 – Feb 2026',
+        period:   'DEC 2025 – FEB 2026',
+        location: 'Mumbai, India',
+        type:     'Research Internship (Remote)',
         color:    'from-violet-500 to-purple-600',
         dot:      'bg-violet-500',
         points: [
@@ -248,7 +250,9 @@ export const EXPERIENCE = [
     {
         role:     'Project Developer Intern',
         company:  'BigBuddy Foundation',
-        period:   'Jan 2025 – Jun 2025',
+        period:   'JAN 2025 – JUN 2025',
+        location: 'Pune, India',
+        type:     'Internship (Remote)',
         color:    'from-blue-500 to-indigo-600',
         dot:      'bg-blue-500',
         points: [
