@@ -24,7 +24,7 @@ export const SITE = {
     github:       'https://github.com/AdityaWagh06',
     linkedin:     'https://linkedin.com/in/aditya-wagh-0609',
     instagram:    'https://instagram.com/adityawagh06',
-    web3formsKey: 'YOUR_WEB3FORMS_KEY',   // ← paste your Web3Forms key here
+    web3formsKey: 'e37a6ac1-322f-43bd-88d2-cbcb8c07bfe2',
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
