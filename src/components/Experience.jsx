@@ -31,8 +31,6 @@ function MobileEntry({ item }) {
             className={`relative pl-8 pb-12 transition-all duration-700 ease-out
                         ${vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
-            {/* spine line */}
-            <div className="absolute left-[11px] top-3 bottom-0 w-px bg-gray-200 dark:bg-white/10" />
             {/* colored dot */}
             <div className={`absolute left-0 top-2 w-[22px] h-[22px] rounded-full ${item.dot}
                             ring-[3px] ring-white dark:ring-[#111] shadow-md z-10`} />
@@ -72,29 +70,42 @@ function MobileEntry({ item }) {
 
 // ── scroll-driven animated timeline ─────────────────────────────────────────
 export default function Experience() {
-    const containerRef = useRef(null)
-    const [fillPx, setFillPx] = useState(0)
-    const [totalH, setTotalH] = useState(0)
+    const containerRef  = useRef(null)
+    const mobileRef     = useRef(null)
+    const [fillPx,    setFillPx]    = useState(0)
+    const [totalH,    setTotalH]    = useState(0)
+    const [mobFill,   setMobFill]   = useState(0)
+    const [mobH,      setMobH]      = useState(0)
 
     useEffect(() => {
         const onScroll = () => {
-            if (!containerRef.current) return
-            const el   = containerRef.current
-            const rect = el.getBoundingClientRect()
-            const h    = el.offsetHeight
-            setTotalH(h)
-            // fill starts when section top crosses 60 % down the viewport,
-            // completes when section scrolls fully past that point
-            const scrolled = window.innerHeight * 0.6 - rect.top
-            setFillPx(Math.min(h, Math.max(0, scrolled)))
+            // desktop
+            if (containerRef.current) {
+                const el   = containerRef.current
+                const rect = el.getBoundingClientRect()
+                const h    = el.offsetHeight
+                setTotalH(h)
+                const scrolled = window.innerHeight * 0.6 - rect.top
+                setFillPx(Math.min(h, Math.max(0, scrolled)))
+            }
+            // mobile
+            if (mobileRef.current) {
+                const el   = mobileRef.current
+                const rect = el.getBoundingClientRect()
+                const h    = el.offsetHeight
+                setMobH(h)
+                const scrolled = window.innerHeight * 0.6 - rect.top
+                setMobFill(Math.min(h, Math.max(0, scrolled)))
+            }
         }
         window.addEventListener('scroll', onScroll, { passive: true })
         onScroll()
         return () => window.removeEventListener('scroll', onScroll)
     }, [])
 
-    // keep dot centre inside the container bounds
-    const dotCY = Math.min(totalH - 22, Math.max(22, fillPx))
+    // keep dot centres inside container bounds
+    const dotCY    = Math.min(totalH - 22, Math.max(22, fillPx))
+    const mobDotCY = Math.min(mobH - 18,   Math.max(18, mobFill))
 
     return (
         <section
@@ -206,8 +217,26 @@ export default function Experience() {
                 />
             </div>
 
-            {/* ══ MOBILE — borderless left-spine scroll-animated entries ═══════ */}
-            <div className="sm:hidden relative ml-2 mt-2">
+            {/* ══ MOBILE — left-spine with traveling avatar ══════════════════ */}
+            <div ref={mobileRef} className="sm:hidden relative ml-2 mt-2">
+                {/* full-height gray spine */}
+                <div className="absolute left-[11px] top-0 bottom-0 w-px bg-gray-200 dark:bg-white/10 pointer-events-none" />
+                {/* rose scroll-fill */}
+                <div
+                    className="absolute top-0 left-[11px] w-[2px] bg-gradient-to-b from-rose-500 to-rose-400 pointer-events-none"
+                    style={{ height: mobFill }}
+                />
+                {/* traveling avatar */}
+                <div
+                    className="absolute left-[11px] -translate-x-1/2
+                               w-9 h-9 rounded-full overflow-hidden
+                               ring-[2.5px] ring-rose-500
+                               shadow-[0_0_14px_4px_rgba(244,63,94,0.35)]
+                               pointer-events-none z-20"
+                    style={{ top: mobDotCY - 18 }}
+                >
+                    <img src={HEADER.profileImg} alt="Aditya" className="w-full h-full object-cover" />
+                </div>
                 {EXPERIENCE.map((item, i) => (
                     <MobileEntry key={i} item={item} />
                 ))}
