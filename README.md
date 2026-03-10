@@ -1,12 +1,75 @@
-# React + Vite
+# Aditya Wagh — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio website built with React, Vite, and Tailwind CSS. All content is driven from a single `src/content.js` file — edit one file to update everything on the site.
 
-Currently, two official plugins are available:
+**Live:** [aditya-wagh-portfolio.vercel.app](https://aditya-wagh-portfolio.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Tool | Purpose |
+|---|---|
+| React 19 + Vite 7 | UI framework & build tool |
+| Tailwind CSS 3 | Utility-first styling |
+| Lenis | Smooth scroll |
+| Framer Motion | Animations |
+| Three.js / R3F | 3D elements |
+| Vercel | Hosting & CI/CD |
+
+---
+
+## Sections
+
+- **Header** — Hero with name, bio, resume download
+- **About** — Photo strip with cursor-tracking scroll, bio, stats, tools
+- **Experience** — Scroll-driven animated timeline with traveling avatar dot
+- **Skills** — Expandable inline skill drawers per category
+- **Projects** — Flip cards with detailed back face, show more/less
+- **Highlights** — Key achievements
+- **Contact** — Web3Forms contact form
+
+---
+
+## Project Structure
+
+```
+src/
+├── content.js          ← single source of truth for ALL content
+├── App.jsx
+├── main.jsx
+├── index.css
+├── assets/
+└── components/
+    ├── Header.jsx
+    ├── Navbar.jsx
+    ├── About.jsx
+    ├── Experience.jsx
+    ├── Services.jsx    (Skills)
+    ├── Work.jsx        (Projects)
+    ├── Highlights.jsx
+    ├── Contact.jsx
+    ├── Footer.jsx
+    └── LenisScroll.jsx
+```
+
+---
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+---
+
+## Customisation
+
+Everything — text, links, photos, projects, skills, experience — lives in **`src/content.js`**. Edit that file and the whole site updates automatically.
