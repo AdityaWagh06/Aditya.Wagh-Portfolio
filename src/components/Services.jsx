@@ -1,10 +1,25 @@
 import { SKILLS } from '../content'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 export default function Services() {
     const [openSkill, setOpenSkill] = useState(null)
+    const gridRef = useRef(null)
 
     const toggle = (name) => setOpenSkill(prev => prev === name ? null : name)
+
+    useEffect(() => {
+        const handleClick = (e) => {
+            if (gridRef.current && !gridRef.current.contains(e.target)) {
+                setOpenSkill(null)
+            }
+        }
+        document.addEventListener('mousedown', handleClick)
+        document.addEventListener('touchstart', handleClick)
+        return () => {
+            document.removeEventListener('mousedown', handleClick)
+            document.removeEventListener('touchstart', handleClick)
+        }
+    }, [])
 
     return (
         <div id="skills" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
@@ -12,7 +27,7 @@ export default function Services() {
             <h2 className="text-center text-3xl sm:text-5xl font-Ovo">My Skills</h2>
             <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo text-sm sm:text-base">{SKILLS.subtitle}</p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 my-10">
+            <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 my-10">
                 {SKILLS.items.map((skill) => {
                     const isOpen = openSkill === skill.name
                     return (

@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Navbar from './components/Navbar'
 import LenisScroll from './components/LenisScroll'
 import Highlights from './components/Highlights'
+import Experience from './components/Experience'
 
 export default function App() {
     return (
@@ -15,6 +16,7 @@ export default function App() {
             <Navbar />
             <Header />
             <About />
+            <Experience />
             <Services />
             <Work />
             <Highlights />

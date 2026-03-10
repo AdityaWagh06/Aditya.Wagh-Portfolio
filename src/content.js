@@ -33,6 +33,7 @@ export const SITE = {
 export const NAV_LINKS = [
     { label: 'Home',       href: '#top' },
     { label: 'About me',   href: '#about' },
+    { label: 'Experience', href: '#experience' },
     { label: 'Skills',     href: '#skills' },
     { label: 'Projects',   href: '#projects' },
     { label: 'Contact me', href: '#contact' },
@@ -227,6 +228,36 @@ export const HIGHLIGHTS = {
 
     
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EXPERIENCE — professional experience timeline
+// ─────────────────────────────────────────────────────────────────────────────
+export const EXPERIENCE = [
+    {
+        role:     'Research Intern',
+        company:  'IIT Bombay – FOSSEE',
+        period:   'Dec 2025 – Feb 2026',
+        color:    'from-violet-500 to-purple-600',
+        dot:      'bg-violet-500',
+        points: [
+            'Contributed to Osdag Bridge, an open-source structural engineering software for bridge analysis and design, improving overall GUI usability and workflow clarity.',
+            'Improved UI responsiveness by ~15%: developed and optimized Python-based GUI modules using PySide6 (Qt), applying OOP, modular architecture, and software engineering best practices in collaboration with researchers and senior developers.',
+        ],
+        tags: ['Python', 'PySide6 (Qt)', 'OOP', 'Open Source', 'GUI Engineering'],
+    },
+    {
+        role:     'Project Developer Intern',
+        company:  'BigBuddy Foundation',
+        period:   'Jan 2025 – Jun 2025',
+        color:    'from-blue-500 to-indigo-600',
+        dot:      'bg-blue-500',
+        points: [
+            'Built an end-to-end OCR-to-Excel automation pipeline using Tesseract OCR, OpenAI LLMs, and Python for intelligent document processing.',
+            'Reduced manual data entry time by ~50%: implemented reliable data extraction, cleaning, and structuring workflows to capture prices, product names, phone numbers, and addresses from scanned documents using NLP and AI-driven automation.',
+        ],
+        tags: ['Python', 'Tesseract OCR', 'OpenAI LLMs', 'NLP', 'Automation'],
+    },
+]
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONTACT — contact section

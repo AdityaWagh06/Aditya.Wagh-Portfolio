@@ -4,48 +4,102 @@ import { ABOUT } from '../content'
 export default function About() {
     const photos = ABOUT.photos
 
-    const photoStripRef = useRef();
-    const lastScrollY = useRef(0);
-    const offsetX = useRef(-280);
-    // 7 images × 160px + 6 gaps × 12px = 1192px, +12px trailing gap = 1204px per cycle
-    const CYCLE = 1204;
+    const photoStripRef = useRef()
+    const containerRef  = useRef()
+    const offsetX    = useRef(-280)
+    const CYCLE      = 1204
+    const SPEED      = 0.4
+    const rafId      = useRef()
+    const isHover    = useRef(false)
+    const lastMouseX = useRef(null)
+    // touch swipe state
+    const touchLastX = useRef(null)
+    const touchVel   = useRef(0)
 
     useEffect(() => {
-        const strip = photoStripRef.current;
-        if (!strip) return;
-        lastScrollY.current = window.scrollY;
-        strip.style.transition = 'none';
-        strip.style.transform = `translateX(${offsetX.current}px)`;
+        const strip     = photoStripRef.current
+        const container = containerRef.current
+        if (!strip || !container) return
 
-        const onScroll = () => {
-            const currentY = window.scrollY;
-            const delta = currentY - lastScrollY.current;
-            offsetX.current -= delta * 1.2;
+        strip.style.transition = 'none'
+        strip.style.transform  = `translateX(${offsetX.current}px)`
 
-            // seamless infinite wrap — keep offsetX in [-CYCLE, 0)
-            if (offsetX.current < -CYCLE) {
-                offsetX.current += CYCLE;
-                strip.style.transition = 'none';
-                strip.style.transform = `translateX(${offsetX.current}px)`;
-                strip.getBoundingClientRect(); // force reflow
-            } else if (offsetX.current >= 0) {
-                offsetX.current -= CYCLE;
-                strip.style.transition = 'none';
-                strip.style.transform = `translateX(${offsetX.current}px)`;
-                strip.getBoundingClientRect(); // force reflow
+        const wrap = () => {
+            if (offsetX.current < -CYCLE) offsetX.current += CYCLE
+            else if (offsetX.current > 0)  offsetX.current -= CYCLE
+        }
+
+        // ── RAF loop: auto-scroll when mouse is not over strip ─────────────
+        const tick = () => {
+            if (!isHover.current) {
+                offsetX.current -= SPEED
+                wrap()
+                strip.style.transform = `translateX(${offsetX.current}px)`
             }
+            rafId.current = requestAnimationFrame(tick)
+        }
+        rafId.current = requestAnimationFrame(tick)
 
-            strip.style.transition = 'transform 0.45s cubic-bezier(0.25,0.1,0.25,1)';
-            strip.style.transform = `translateX(${offsetX.current}px)`;
-            lastScrollY.current = currentY;
-        };
+        // ── Mouse: hover = track cursor delta directly (fast, 1:1) ─────────
+        const onMouseEnter = () => { isHover.current = true; lastMouseX.current = null }
+        const onMouseLeave = () => { isHover.current = false; lastMouseX.current = null }
+        const onMouseMove  = (e) => {
+            if (!isHover.current) return
+            if (lastMouseX.current === null) { lastMouseX.current = e.clientX; return }
+            const delta = e.clientX - lastMouseX.current
+            offsetX.current += delta
+            wrap()
+            strip.style.transform = `translateX(${offsetX.current}px)`
+            lastMouseX.current = e.clientX
+        }
 
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+        // ── Touch: swipe with momentum ─────────────────────────────────────
+        const onTouchStart = (e) => {
+            touchLastX.current = e.touches[0].clientX
+            touchVel.current   = 0
+            isHover.current    = true
+        }
+        const onTouchMove = (e) => {
+            const x = e.touches[0].clientX
+            const delta = x - touchLastX.current
+            touchVel.current  = delta
+            offsetX.current  += delta
+            wrap()
+            strip.style.transform = `translateX(${offsetX.current}px)`
+            touchLastX.current = x
+        }
+        const onTouchEnd = () => {
+            isHover.current = false
+            let mom = touchVel.current * 8
+            const glide = () => {
+                if (Math.abs(mom) < 0.3) return
+                offsetX.current += mom; mom *= 0.92; wrap()
+                strip.style.transform = `translateX(${offsetX.current}px)`
+                requestAnimationFrame(glide)
+            }
+            requestAnimationFrame(glide)
+        }
+
+        container.addEventListener('mouseenter', onMouseEnter)
+        container.addEventListener('mouseleave', onMouseLeave)
+        container.addEventListener('mousemove',  onMouseMove)
+        container.addEventListener('touchstart', onTouchStart, { passive: true })
+        container.addEventListener('touchmove',  onTouchMove,  { passive: true })
+        container.addEventListener('touchend',   onTouchEnd)
+
+        return () => {
+            cancelAnimationFrame(rafId.current)
+            container.removeEventListener('mouseenter', onMouseEnter)
+            container.removeEventListener('mouseleave', onMouseLeave)
+            container.removeEventListener('mousemove',  onMouseMove)
+            container.removeEventListener('touchstart', onTouchStart)
+            container.removeEventListener('touchmove',  onTouchMove)
+            container.removeEventListener('touchend',   onTouchEnd)
+        }
+    }, [])
 
     const tools = ABOUT.tools
-    const data   = ABOUT.stats
+    const data  = ABOUT.stats
 
     return (
         <div id="about" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
@@ -53,13 +107,15 @@ export default function About() {
             <h2 className="text-center text-3xl sm:text-5xl font-Ovo">About me</h2>
 
             <div className="flex w-full flex-col lg:flex-row items-center gap-10 lg:gap-20 my-10 lg:my-20">
-                {/* ── Scroll-driven Photo Strip ── */}
-                <div className="relative overflow-hidden rounded-3xl h-64 sm:h-72 w-full max-w-xs mx-auto lg:mx-0 lg:w-72 flex-shrink-0">
+                {/* ── Photo Strip ── */}
+                <div
+                    ref={containerRef}
+                    className="relative overflow-hidden rounded-3xl h-64 sm:h-72 w-full max-w-xs mx-auto lg:mx-0 lg:w-72 flex-shrink-0 cursor-ew-resize select-none"
+                >
                     {/* left fade */}
                     <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white dark:from-darkTheme to-transparent z-10 pointer-events-none" />
                     {/* right fade */}
                     <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white dark:from-darkTheme to-transparent z-10 pointer-events-none" />
-                    {/* scrolling strip — will-change for GPU layer */}
                     <div
                         ref={photoStripRef}
                         className="flex h-full items-center gap-3 pr-3 will-change-transform"
@@ -69,6 +125,7 @@ export default function About() {
                                 key={i}
                                 src={src}
                                 alt=""
+                                draggable={false}
                                 className="h-56 sm:h-64 w-40 sm:w-44 object-cover rounded-2xl flex-shrink-0 shadow-md"
                             />
                         ))}

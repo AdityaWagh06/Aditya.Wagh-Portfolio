@@ -1,11 +1,26 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { WORK } from '../content'
 
 export default function Work() {
     const [flipped, setFlipped] = useState(null)
     const [showAll, setShowAll] = useState(false)
+    const gridRef = useRef(null)
 
     const visibleProjects = showAll ? WORK.projects : WORK.projects.slice(0, 4)
+
+    useEffect(() => {
+        const handleClick = (e) => {
+            if (gridRef.current && !gridRef.current.contains(e.target)) {
+                setFlipped(null)
+            }
+        }
+        document.addEventListener('mousedown', handleClick)
+        document.addEventListener('touchstart', handleClick)
+        return () => {
+            document.removeEventListener('mousedown', handleClick)
+            document.removeEventListener('touchstart', handleClick)
+        }
+    }, [])
 
     return (
         <div id="projects" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
@@ -13,7 +28,7 @@ export default function Work() {
             <h2 className="text-center text-3xl sm:text-5xl font-Ovo">Projects</h2>
             <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo text-sm sm:text-base">{WORK.subtitle}</p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-10 gap-5">
+            <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-10 gap-5">
                 {visibleProjects.map((item) => (
                     <div
                         key={item.name}
