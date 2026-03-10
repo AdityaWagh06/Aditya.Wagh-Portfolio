@@ -13,6 +13,63 @@ const Briefcase = () => (
     </svg>
 )
 
+// ── mobile entry: scroll-triggered fade-in, no card border ─────────────────
+function MobileEntry({ item }) {
+    const ref     = useRef(null)
+    const [vis, setVis] = useState(false)
+    useEffect(() => {
+        const obs = new IntersectionObserver(
+            ([e]) => { if (e.isIntersecting) setVis(true) },
+            { threshold: 0.18 }
+        )
+        if (ref.current) obs.observe(ref.current)
+        return () => obs.disconnect()
+    }, [])
+    return (
+        <div
+            ref={ref}
+            className={`relative pl-8 pb-12 transition-all duration-700 ease-out
+                        ${vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        >
+            {/* spine line */}
+            <div className="absolute left-[11px] top-3 bottom-0 w-px bg-gray-200 dark:bg-white/10" />
+            {/* colored dot */}
+            <div className={`absolute left-0 top-2 w-[22px] h-[22px] rounded-full ${item.dot}
+                            ring-[3px] ring-white dark:ring-[#111] shadow-md z-10`} />
+            {/* content — no card box */}
+            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gray-400 dark:text-gray-500 mb-1">
+                {item.period}
+            </p>
+            <h3 className={`text-lg font-bold italic leading-tight bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
+                {item.company}
+            </h3>
+            {item.location && (
+                <div className="flex items-center gap-1.5 mt-1.5 text-xs text-gray-500 dark:text-gray-500">
+                    <MapPin /> {item.location}
+                </div>
+            )}
+            {item.type && (
+                <div className="flex items-center gap-1.5 mt-0.5 text-xs text-gray-500 dark:text-gray-500">
+                    <Briefcase /> {item.type}
+                </div>
+            )}
+            <h4 className="text-sm font-bold dark:text-white text-gray-900 mt-3 mb-3">{item.role}</h4>
+            <div className="space-y-2">
+                {item.points.map((pt, j) => (
+                    <p key={j} className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{pt}</p>
+                ))}
+            </div>
+            <div className="flex flex-wrap gap-1.5 mt-4">
+                {item.tags.map(t => (
+                    <span key={t} className="px-2.5 py-0.5 rounded-full text-[10px] font-medium border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5">
+                        <span className={`bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>{t}</span>
+                    </span>
+                ))}
+            </div>
+        </div>
+    )
+}
+
 // ── scroll-driven animated timeline ─────────────────────────────────────────
 export default function Experience() {
     const containerRef = useRef(null)
@@ -149,56 +206,13 @@ export default function Experience() {
                 />
             </div>
 
-            {/* ══ MOBILE — stacked cards (no spine) ═════════════════════════ */}
-            <div className="sm:hidden flex flex-col gap-6">
+            {/* ══ MOBILE — borderless left-spine scroll-animated entries ═══════ */}
+            <div className="sm:hidden relative ml-2 mt-2">
                 {EXPERIENCE.map((item, i) => (
-                    <div
-                        key={i}
-                        className="rounded-2xl border border-gray-200 dark:border-white/10
-                                   bg-white dark:bg-[#0d0d0d] shadow-sm overflow-hidden"
-                    >
-                        <div className={`h-1.5 w-full bg-gradient-to-r ${item.color}`} />
-                        <div className="p-5">
-                            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-1">
-                                {item.period}
-                            </p>
-                            <h3 className={`text-lg font-bold italic bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
-                                {item.company}
-                            </h3>
-                            {item.location && (
-                                <div className="flex items-center gap-1.5 mt-1 text-[11px] text-gray-500">
-                                    <MapPin /> {item.location}
-                                </div>
-                            )}
-                            {item.type && (
-                                <div className="flex items-center gap-1.5 mt-0.5 mb-3 text-[11px] text-gray-500">
-                                    <Briefcase /> {item.type}
-                                </div>
-                            )}
-                            <h4 className="text-base font-bold dark:text-white mt-3 mb-3">{item.role}</h4>
-                            <div className="space-y-2">
-                                {item.points.map((pt, j) => (
-                                    <p key={j} className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-                                        {pt}
-                                    </p>
-                                ))}
-                            </div>
-                            <div className="flex flex-wrap gap-1.5 mt-4">
-                                {item.tags.map(t => (
-                                    <span
-                                        key={t}
-                                        className="px-2.5 py-1 rounded-full text-[10px] font-medium
-                                                   border border-gray-200 dark:border-white/10"
-                                    >
-                                        <span className={`bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
-                                            {t}
-                                        </span>
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    <MobileEntry key={i} item={item} />
                 ))}
+                {/* end-cap dot */}
+                <div className="absolute left-[11px] bottom-0 w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-white/20 ring-4 ring-white dark:ring-[#111] -translate-x-1/2" />
             </div>
         </section>
     )

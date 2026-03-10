@@ -64,7 +64,9 @@ export default function Work() {
 
                             {/* Back face */}
                             <div
-                                className="absolute inset-0 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-700 dark:from-purple-900 dark:to-indigo-900 p-5 flex flex-col justify-between"
+                                className="absolute inset-0 rounded-lg p-5 flex flex-col justify-between
+                                           bg-white border border-gray-200
+                                           dark:bg-gradient-to-br dark:from-[#1e1b4b] dark:to-[#312e81] dark:border-0"
                                 style={{
                                     backfaceVisibility: 'hidden',
                                     WebkitBackfaceVisibility: 'hidden',
@@ -72,13 +74,13 @@ export default function Work() {
                                 }}
                             >
                                 <div>
-                                    <h3 className="text-white font-bold text-sm sm:text-base mb-3 leading-snug">{item.name}</h3>
-                                    <p className="text-purple-100 text-xs sm:text-sm leading-relaxed line-clamp-5">{item.detailedDescription}</p>
+                                    <h3 className="font-bold text-sm sm:text-base mb-3 leading-snug text-gray-900 dark:text-white">{item.name}</h3>
+                                    <p className="text-gray-600 dark:text-purple-100 text-xs sm:text-sm leading-relaxed line-clamp-5">{item.detailedDescription}</p>
                                 </div>
                                 <div className="flex items-center justify-between gap-2 mt-3">
                                     <div className="flex flex-wrap gap-1">
                                         {item.tech?.slice(0, 3).map(t => (
-                                            <span key={t} className="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full">{t}</span>
+                                            <span key={t} className="text-[10px] bg-gray-100 dark:bg-white/20 text-gray-700 dark:text-white px-2 py-0.5 rounded-full">{t}</span>
                                         ))}
                                     </div>
                                     <a
@@ -86,7 +88,7 @@ export default function Work() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={e => e.stopPropagation()}
-                                        className="shrink-0 text-xs text-white/80 hover:text-white underline underline-offset-2"
+                                        className="shrink-0 text-xs text-gray-500 dark:text-white/80 hover:text-gray-900 dark:hover:text-white underline underline-offset-2"
                                     >
                                         GitHub →
                                     </a>
