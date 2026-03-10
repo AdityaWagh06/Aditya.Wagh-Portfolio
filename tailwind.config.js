@@ -6,19 +6,34 @@ export default {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        'auto': 'repeat(auto-fit, minmax(200px, 1fr))'
+      },
+      fontFamily: {
+        Outfit: ["Outfit", "sans-serif"],
+        Ovo: ["Ovo", "serif"]
+      },
       animation: {
-        'gradient-slow': 'gradientBG 15s ease infinite',
+        spin_slow: 'spin 6s linear infinite',
+        photoScroll: 'photoScroll 20s linear infinite',
       },
       keyframes: {
-        gradientBG: {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
+        photoScroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
-      backgroundSize: {
-        '200%': '200% 200%',
+      colors: {
+        lightHover: '#fcf4ff',
+        darkHover: '#2a004a',
+        darkTheme: '#11001F'
       },
+      boxShadow: {
+        'black': '4px 4px 0 #000',
+        'white': '4px 4px 0 #fff',
+      }
     },
   },
+  darkMode: 'selector',
   plugins: [],
 }

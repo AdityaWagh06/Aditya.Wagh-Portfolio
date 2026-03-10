@@ -1,30 +1,25 @@
-import Home from "./pages/Home";
-import Summary from "./pages/Summary";
-import BottomNavbar from "./components/BottomNavbar";
+import Contact from './components/Contact'
+import Footer from './components/Footer'
+import Work from './components/Work'
+import Services from './components/Services'
+import About from './components/About'
+import Header from './components/Header'
+import Navbar from './components/Navbar'
+import LenisScroll from './components/LenisScroll'
+import Highlights from './components/Highlights'
 
-import BlurText from "../Reactbits/BlurText/BlurText";
-import Projects from "./pages/Projects";
-import Skills from "./pages/Skills";
-import Contact from "./pages/Contact";
-import Footer from "./components/Footer";
-
-
-
-function App() {
-  return (
-    <div className="font-sans">
-      
-      <Home />
-      <Summary/>
-      <Projects />
-      <Skills />
-      <Contact />
-      {/* Add other pages as needed */}
-      <BottomNavbar />
-      <BlurText/>
-      <Footer />
-    </div>
-  );
+export default function App() {
+    return (
+        <>
+            <LenisScroll />
+            <Navbar />
+            <Header />
+            <About />
+            <Services />
+            <Work />
+            <Highlights />
+            <Contact />
+            <Footer />
+        </>
+    )
 }
-
-export default App;
