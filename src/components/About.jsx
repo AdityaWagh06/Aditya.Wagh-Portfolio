@@ -20,7 +20,7 @@ export default function About() {
         const onScroll = () => {
             const currentY = window.scrollY;
             const delta = currentY - lastScrollY.current;
-            offsetX.current -= delta * 1.8;
+            offsetX.current -= delta * 1.2;
 
             // seamless infinite wrap — keep offsetX in [-CYCLE, 0)
             if (offsetX.current < -CYCLE) {
@@ -35,7 +35,7 @@ export default function About() {
                 strip.getBoundingClientRect(); // force reflow
             }
 
-            strip.style.transition = 'transform 0.12s cubic-bezier(0.25,0.1,0.25,1)';
+            strip.style.transition = 'transform 0.45s cubic-bezier(0.25,0.1,0.25,1)';
             strip.style.transform = `translateX(${offsetX.current}px)`;
             lastScrollY.current = currentY;
         };

@@ -1,8 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { SKILLS } from '../content'
 
 export default function Services() {
-    const [flipped, setFlipped] = useState(null)
+    const [openSkill, setOpenSkill] = useState(null)
+    const [visible, setVisible] = useState(false)
+
+    const activeItem = SKILLS.items.find(s => s.name === openSkill)
+
+    const openDrawer = (name) => {
+        setOpenSkill(name)
+        requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)))
+    }
+    const closeDrawer = () => {
+        setVisible(false)
+        setTimeout(() => setOpenSkill(null), 350)
+    }
+
+    // close on backdrop click or Escape
+    useEffect(() => {
+        const onKey = (e) => { if (e.key === 'Escape') closeDrawer() }
+        document.addEventListener('keydown', onKey)
+        return () => document.removeEventListener('keydown', onKey)
+    }, [])
 
     return (
         <div id="skills" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
@@ -14,61 +33,67 @@ export default function Services() {
                 {SKILLS.items.map((skill) => (
                     <div
                         key={skill.name}
-                        className="min-h-[220px] sm:min-h-[260px] cursor-pointer select-none"
-                        style={{ perspective: '1000px' }}
-                        onClick={() => setFlipped(flipped === skill.name ? null : skill.name)}
+                        onClick={() => openDrawer(skill.name)}
+                        className="border border-gray-300 dark:border-white/30 rounded-lg px-6 sm:px-8 py-8 sm:py-10 flex flex-col cursor-pointer hover:bg-lightHover dark:hover:bg-darkHover hover:-translate-y-1 duration-300 bg-white dark:bg-[#0d0d0d] select-none"
                     >
-                        <div
-                            className="relative w-full h-full"
-                            style={{
-                                transformStyle: 'preserve-3d',
-                                transition: 'transform 0.6s ease',
-                                transform: flipped === skill.name ? 'rotateY(180deg)' : 'rotateY(0deg)',
-                                minHeight: 'inherit',
-                            }}
-                        >
-                            {/* Front */}
-                            <div
-                                className="absolute inset-0 border border-gray-300 dark:border-white/30 rounded-lg px-6 sm:px-8 py-8 sm:py-10 flex flex-col bg-white dark:bg-[#0d0d0d] hover:bg-lightHover dark:hover:bg-darkHover hover:-translate-y-1 duration-300"
-                                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
-                            >
-                                <img src={skill.icon} alt="" className="w-10" />
-                                <h3 className="text-lg my-4 text-gray-700 dark:text-white">{skill.name}</h3>
-                                <p className="text-sm text-gray-600 leading-5 dark:text-white/80 flex-1">{skill.description}</p>
-                                <span className="flex items-center gap-1 text-sm mt-5 font-medium text-gray-400 dark:text-gray-500">
-                                    Tap to see skills →
-                                </span>
-                            </div>
+                        <img src={skill.icon} alt="" className="w-10" />
+                        <h3 className="text-lg my-4 text-gray-700 dark:text-white">{skill.name}</h3>
+                        <p className="text-sm text-gray-600 leading-5 dark:text-white/80 flex-1">{skill.description}</p>
+                        <span className="flex items-center gap-1 text-sm mt-5 font-medium text-gray-400 dark:text-gray-500">
+                            Tap to see skills →
+                        </span>
+                    </div>
+                ))}
+            </div>
 
-                            {/* Back */}
-                            <div
-                                className="absolute inset-0 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-700 dark:from-purple-900 dark:to-indigo-900 p-5 sm:p-6 flex flex-col"
-                                style={{
-                                    backfaceVisibility: 'hidden',
-                                    WebkitBackfaceVisibility: 'hidden',
-                                    transform: 'rotateY(180deg)',
-                                }}
-                            >
-                                <div className="flex items-center gap-2 mb-4">
-                                    <img src={skill.icon} alt="" className="w-7 brightness-0 invert" />
-                                    <h3 className="text-white font-bold text-sm sm:text-base">{skill.name}</h3>
+            {/* ── Bottom Drawer ── */}
+            {openSkill && (
+                <>
+                    {/* backdrop */}
+                    <div
+                        onClick={closeDrawer}
+                        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+                        style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.35s ease' }}
+                    />
+                    {/* drawer panel */}
+                    <div
+                        className="fixed bottom-0 left-0 right-0 z-50 rounded-t-3xl bg-white dark:bg-[#111] shadow-2xl px-6 sm:px-10 pt-5 pb-10"
+                        style={{
+                            transform: visible ? 'translateY(0)' : 'translateY(100%)',
+                            transition: 'transform 0.35s cubic-bezier(0.32,0.72,0,1)',
+                            maxHeight: '70vh',
+                            overflowY: 'hidden',
+                        }}
+                    >
+                        {/* drag handle */}
+                        <div className="w-10 h-1 bg-gray-300 dark:bg-white/20 rounded-full mx-auto mb-5" />
+                        {activeItem && (
+                            <>
+                                <div className="flex items-center gap-3 mb-6">
+                                    <img src={activeItem.icon} alt="" className="w-8" />
+                                    <h3 className="text-xl font-bold font-Ovo dark:text-white">{activeItem.name}</h3>
+                                    <button
+                                        onClick={closeDrawer}
+                                        className="ml-auto text-gray-400 hover:text-gray-600 dark:hover:text-white text-2xl leading-none"
+                                    >
+                                        ×
+                                    </button>
                                 </div>
-                                <div className="flex flex-wrap gap-1.5 content-start overflow-y-auto flex-1">
-                                    {skill.skills.map(s => (
+                                <div className="flex flex-wrap gap-2">
+                                    {activeItem.skills.map(s => (
                                         <span
                                             key={s}
-                                            className="px-2.5 py-1 rounded-full text-xs font-medium bg-white/20 text-white border border-white/30"
+                                            className="px-3 py-1.5 rounded-full text-sm font-medium bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-700 text-purple-700 dark:text-purple-300"
                                         >
                                             {s}
                                         </span>
                                     ))}
                                 </div>
-                                <span className="text-purple-200 text-xs mt-3">Tap to go back ↩</span>
-                            </div>
-                        </div>
+                            </>
+                        )}
                     </div>
-                ))}
-            </div>
+                </>
+            )}
         </div>
     )
 }

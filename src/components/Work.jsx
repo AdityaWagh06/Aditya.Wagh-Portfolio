@@ -25,7 +25,7 @@ export default function Work() {
                             className="relative w-full h-full"
                             style={{
                                 transformStyle: 'preserve-3d',
-                                transition: 'transform 0.6s ease',
+                                transition: 'transform 0.55s cubic-bezier(0.4,0.2,0.2,1)',
                                 transform: flipped === item.name ? 'rotateY(180deg)' : 'rotateY(0deg)',
                             }}
                         >
