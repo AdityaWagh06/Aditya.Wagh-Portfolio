@@ -11,8 +11,9 @@ import photo2     from './assets/2.jpeg'
 import photo3     from './assets/3.jpeg'
 import photo4     from './assets/4.jpeg'
 import photo5     from './assets/5.jpeg'
-import photo6     from './assets/6.jpeg'
-import photo7     from './assets/7.jpeg'
+import certDoc    from './assets/6.pdf'
+import droneWorkshopImg from './assets/drone workshop.jpg'
+import nssLetterImg from './assets/nss.jpg.jpeg'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SITE — global info used in multiple places
@@ -57,7 +58,7 @@ export const ABOUT = {
     bio: 'I am a final-year B.Tech student in Computer Science (AI/ML) at VIIT Pune. With 4 IEEE publications, research experience at IIT Bombay FOSSEE, and internship work building production tools and educational platforms, I enjoy working across full-stack development, data science, and AI research. Currently exploring opportunities in software engineering, machine learning, and generative AI.',
 
     // Photos shown in the scroll-driven strip (add/remove/reorder freely)
-    photos: [photo1, photo2, photo3, photo4, photo5, photo6, photo7],
+    photos: [photo1, photo2, photo3, photo4, photo5],
 
     // Three stat cards below the bio
     stats: [
@@ -167,22 +168,26 @@ export const WORK = {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// HIGHLIGHTS — publications, blog, certifications, experience
+// HIGHLIGHTS — achievements (papers, blog, GitHub activity)
 // ─────────────────────────────────────────────────────────────────────────────
 export const HIGHLIGHTS = {
-    subtitle: 'Publications, certifications, and thoughts — a glimpse into my journey beyond projects.',
+    subtitle: 'A short snapshot of my research work, writing, and GitHub consistency.',
 
-    // Large featured publication card (top-left)
-    featured: {
-        venue:       'IEEE ICCUBEA 2025',
-        title:       'Contextual Filler Word Detection Using BERT & Prosodic Features',
-        description: 'Published at IEEE ICCUBEA 2025. Developed a BERT-based model combined with prosodic features for contextual filler word detection in speech, advancing NLP-driven speech analysis.',
-        tags:        ['NLP', 'BERT', 'Speech Analysis'],
-        link:        '#',
+    github: {
+        profileUrl:            'https://github.com/AdityaWagh06',
+        fallbackContributions: '120+ (90d)',
+        fallbackCommits:       '80 recent',
+        fallbackStatus:        'Recent push activity available on GitHub profile.',
     },
 
-    // Smaller publication cards
+    // Papers (kept concise for the Achievements section)
     publications: [
+        {
+            venue:  'IEEE ICCUBEA 2025',
+            title:  'Contextual Filler Word Detection Using BERT & Prosodic Features',
+            footer: 'Published · NLP · Speech Analysis',
+            link:   '#',
+        },
         {
             venue:  'IEEE INSPECT 2025',
             title:  'AI Agent for Scientific Paper Analysis',
@@ -203,7 +208,59 @@ export const HIGHLIGHTS = {
         },
     ],
 
-    // Blog post card
+    achievements: [
+        {
+            id:          'ucsi-immersion',
+            title:       'Global Immersion Program at UCSI University, Malaysia',
+            period:      'Sept 2025',
+            description: 'Completed the Global Immersion Program at UCSI University, Malaysia.',
+            details: {
+                photo:        photo1,
+                photoAlt:     'Aditya Wagh at UCSI University, Malaysia',
+                certificates: [
+                    { name: 'AI-Driven Cybersecurity Tools', file: certDoc },
+                    { name: 'Data Privacy in AI Applications', file: certDoc },
+                    { name: 'AI in Ethical Decision-Making', file: certDoc },
+                ],
+            },
+        },
+        {
+            id:          'osdag-bridge',
+            title:       'Open-Source Contributor — Osdag Bridge (FOSSEE Project)',
+            period:      '2025',
+            description: 'Contributed to the open-source development of Osdag Bridge, an interdisciplinary civil engineering software for bridge analysis and design.',
+        },
+        {
+            id:          'cdac-drone',
+            title:       'CDAC UAV 5-Day Bootcamp on AI & Drone Systems',
+            period:      '2025',
+            description: 'Completed the CDAC UAV bootcamp with intensive training in AI-driven drone operations and autonomous systems.',
+            details: {
+                photo:        droneWorkshopImg,
+                photoAlt:     'Aditya Wagh during CDAC UAV AI and Drone Systems bootcamp',
+                certificates: [
+                    { name: 'AI-Driven Drone Operations', file: certDoc },
+                    { name: 'Autonomous Systems Fundamentals', file: certDoc },
+                    { name: 'UAV Mission Planning & Safety', file: certDoc },
+                ],
+            },
+        },
+        {
+            id:          'nss-volunteer',
+            title:       'National Service Scheme (NSS) Volunteer',
+            period:      '2024',
+            description: 'Served as an NSS volunteer for 1 year, participating in community service, social awareness drives, and outreach programs.',
+            details: {
+                photo:        nssLetterImg,
+                photoAlt:     'NSS appreciation letter',
+                certificates: [
+                    { name: 'NSS Appreciation Letter', file: nssLetterImg },
+                ],
+            },
+        },
+    ],
+
+    // Blog highlight
     blog: {
         url:         'https://medium.com/@adityawagh2525/766a12d3712e',
         displayUrl:  'medium.com/@adityawagh2525',
@@ -211,22 +268,6 @@ export const HIGHLIGHTS = {
         description: 'Peter Thiel is one of Silicon Valley’s most influential and controversial thinkers. He is known less for following trends and more for questioning systems most people accept without doubt – including education.',
         author:      'Aditya Wagh · Medium',
     },
-
-    // Individual certification cards (cards 6–10; card 11 uses the combined card below)
-    certifications: [
-        { name: 'MongoDB RAG',            issuer: 'MongoDB',         date: 'Aug 2025' },
-        { name: 'IBM AI Engineering',     issuer: 'IBM · Coursera',  date: 'Oct 2024' },
-        { name: 'IBM Full Stack Developer', issuer: 'IBM · Coursera', date: 'Jul 2024' },
-        { name: 'GenAI for Everyone',     issuer: 'DeepLearning.AI', date: 'Sep 2024' },
-    ],
-
-    // Combined cert card (card 11 — pairs two certs)
-    combinedCerts: [
-        { name: 'CCNA: Intro to Networks', issuer: 'Cisco', date: 'Nov 2024' },
-        { name: 'UX/UI Design',            issuer: 'Meta',  date: 'Oct 2024' },
-    ],
-
-    
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -236,7 +277,7 @@ export const EXPERIENCE = [
     {
         role:     'Research Intern',
         company:  'IIT Bombay – FOSSEE',
-        period:   'DEC 2025 – FEB 2026',
+        period:   'Oct 2025 – FEB 2026',
         location: 'Mumbai, India',
         type:     'Research Internship (Remote)',
         color:    'from-violet-500 to-purple-600',
