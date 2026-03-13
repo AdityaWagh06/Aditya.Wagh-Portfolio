@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { HIGHLIGHTS } from '../content'
 
 function formatTimeAgo(isoDate) {
@@ -21,6 +21,7 @@ export default function Highlights() {
     const achievements = Array.isArray(HIGHLIGHTS?.achievements) ? HIGHLIGHTS.achievements : []
 
     const [activeAchievement, setActiveAchievement] = useState(null)
+    const achievementsRef = useRef(null)
     const [github, setGithub] = useState({
         loading: true,
         contributions: HIGHLIGHTS.github.fallbackContributions,
@@ -117,6 +118,23 @@ export default function Highlights() {
         return () => { active = false }
     }, [username])
 
+    useEffect(() => {
+        const onPointerDown = (event) => {
+            if (!activeAchievement) return
+            if (!achievementsRef.current) return
+            if (!achievementsRef.current.contains(event.target)) {
+                setActiveAchievement(null)
+            }
+        }
+
+        document.addEventListener('mousedown', onPointerDown)
+        document.addEventListener('touchstart', onPointerDown)
+        return () => {
+            document.removeEventListener('mousedown', onPointerDown)
+            document.removeEventListener('touchstart', onPointerDown)
+        }
+    }, [activeAchievement])
+
     return (
         <div id="highlights" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
             <h4 className="text-center mb-2 text-lg font-Ovo">Beyond the code</h4>
@@ -206,7 +224,7 @@ export default function Highlights() {
                     </div>
                 </a>
 
-                <div className="md:col-span-12 rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0d0d0d] p-5 sm:p-6">
+                <div ref={achievementsRef} className="md:col-span-12 rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0d0d0d] p-5 sm:p-6">
                     <h3 className="text-xl sm:text-2xl font-bold font-Ovo dark:text-white mb-1">Key Achievements</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-5">Click on an item to view details, certificates, and photos.</p>
 
@@ -241,7 +259,10 @@ export default function Highlights() {
                                     </button>
 
                                     {hasDetails && isOpen && (
-                                        <div className="p-4 sm:p-5 border-t border-gray-200 dark:border-white/10 bg-gradient-to-r from-blue-50/70 via-white to-cyan-50/70 dark:from-[#0e1724] dark:via-[#0f141d] dark:to-[#0f1d25]">
+                                        <div
+                                            onClick={() => setActiveAchievement(null)}
+                                            className="p-4 sm:p-5 border-t border-gray-200 dark:border-white/10 bg-gradient-to-r from-blue-50/70 via-white to-cyan-50/70 dark:from-[#0e1724] dark:via-[#0f141d] dark:to-[#0f1d25]"
+                                        >
                                             <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
                                                 <div className="md:col-span-4">
                                                     <img
