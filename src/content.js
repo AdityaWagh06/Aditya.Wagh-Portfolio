@@ -22,8 +22,8 @@ export const SITE = {
     logoText:     'aditya.',
     email:        'adityawagh2525@gmail.com',
     github:       'https://github.com/AdityaWagh06',
-    linkedin:     'https://linkedin.com/in/aditya-wagh-0609',
-    instagram:    'https://instagram.com/adityawagh06',
+    linkedin:     'https://www.linkedin.com/in/aditya-wagh25/',
+    instagram:    'https://www.instagram.com/_adityawagh_7',
     web3formsKey: 'e37a6ac1-322f-43bd-88d2-cbcb8c07bfe2',
 }
 
