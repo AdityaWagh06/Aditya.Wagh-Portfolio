@@ -9,7 +9,6 @@ import resume     from './assets/Aditya_Wagh_Resume.pdf'
 import photo1     from './assets/1.jpeg'
 import photo2     from './assets/2.jpeg'
 import photo3     from './assets/3.jpeg'
-import photo4     from './assets/4.jpeg'
 import photo5     from './assets/5.jpeg'
 import certDoc    from './assets/6.pdf'
 import droneWorkshopImg from './assets/drone workshop.jpg'
@@ -58,7 +57,7 @@ export const ABOUT = {
     bio: 'I am a final-year B.Tech student in Computer Science (AI/ML) at VIIT Pune. With 4 IEEE publications, research experience at IIT Bombay FOSSEE, and internship work building production tools and educational platforms, I enjoy working across full-stack development, data science, and AI research. Currently exploring opportunities in software engineering, machine learning, and generative AI.',
 
     // Photos shown in the scroll-driven strip (add/remove/reorder freely)
-    photos: [photo1, photo2, photo3, photo4, photo5],
+    photos: [photo1, photo2, photo3, photo5],
 
     // Three stat cards below the bio
     stats: [
