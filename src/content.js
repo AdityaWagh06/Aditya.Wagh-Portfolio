@@ -193,13 +193,13 @@ export const HIGHLIGHTS = {
         {
             venue:  'IEEE ICCUBEA 2025',
             title:  'Contextual Filler Word Detection Using BERT & Prosodic Features',
-            footer: 'Published · NLP · Speech Analysis',
+            footer: 'Published in IEEE Xplore · NLP · Speech Analysis',
             link:   '#',
         },
         {
             venue:  'IEEE INSPECT 2025',
             title:  'AI Agent for Scientific Paper Analysis',
-            footer: 'Published · AI Agents · LLMs',
+            footer: 'Published in IEEE Xplore · AI Agents · LLMs',
             link:   '#',
         },
         {
