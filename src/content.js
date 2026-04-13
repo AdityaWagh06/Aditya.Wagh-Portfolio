@@ -205,7 +205,7 @@ export const HIGHLIGHTS = {
         {
             venue:  'APCIT 2025',
             title:  'Robust Facial Expression Recognition with VGG16',
-            footer: 'Published in IEEE Xplore (March 4, 2026) · Computer Vision · CNN',
+            footer: 'Published in IEEE Xplore · Computer Vision · CNN',
             link:   '#',
         },
         {
