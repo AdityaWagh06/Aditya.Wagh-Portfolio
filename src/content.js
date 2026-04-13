@@ -132,6 +132,15 @@ export const WORK = {
     githubUrl: 'https://github.com/AdityaWagh06',
     projects: [
         {
+            name:               'A to Z Education',
+            icon:               '/assets/work-1.png',
+            description:        'React · Node.js/Express · Supabase · Razorpay',
+            detailedDescription: 'Full-stack e-learning platform with Google authentication, role-based student/admin dashboards, class-wise subjects, video lessons, test management, paid test unlocks with Razorpay, announcements, and a fully mobile-responsive UI. Deployed on Vercel (frontend) and Render (backend).',
+            tech:               ['React', 'Node.js', 'Express', 'Supabase', 'Razorpay'],
+            link:               'https://a-to-z-education-j8j2.vercel.app',
+            linkLabel:          'Live →',
+        },
+        {
             name:               'NeuroQuery - NLP to SQL Chatbot',
             icon:               '/assets/work-1.png',
             description:        'NLP · Flask · React · 96% Accuracy',

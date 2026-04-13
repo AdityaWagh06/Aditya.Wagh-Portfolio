@@ -90,7 +90,7 @@ export default function Work() {
                                         onClick={e => e.stopPropagation()}
                                         className="shrink-0 text-xs text-gray-500 dark:text-white/80 hover:text-gray-900 dark:hover:text-white underline underline-offset-2"
                                     >
-                                        GitHub →
+                                        {item.linkLabel || 'GitHub →'}
                                     </a>
                                 </div>
                             </div>
