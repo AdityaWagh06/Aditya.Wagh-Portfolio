@@ -88,7 +88,7 @@ export default function Work() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={e => e.stopPropagation()}
-                                        className="shrink-0 text-xs text-gray-500 dark:text-white/80 hover:text-gray-900 dark:hover:text-white underline underline-offset-2"
+                                        className="shrink-0 inline-flex items-center justify-center px-3 py-1.5 rounded-full text-sm sm:text-base font-semibold bg-gray-900 text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-gray-200 transition-colors"
                                     >
                                         {item.linkLabel || 'GitHub →'}
                                     </a>

@@ -142,7 +142,7 @@ export const WORK = {
         },
         {
             name:               'NeuroQuery - NLP to SQL Chatbot',
-            icon:               '/assets/work-1.png',
+            icon:               '/assets/work-2.png',
             description:        'NLP · Flask · React · 96% Accuracy',
             detailedDescription: 'Converts plain English queries into SQL commands using NLP techniques. Achieves 96% accuracy on complex multi-table query translations with schema inference. Built with a Flask backend and a React frontend.',
             tech:               ['NLP', 'Flask', 'React', 'MySQL', 'Python'],
@@ -150,7 +150,7 @@ export const WORK = {
         },
         {
             name:               'NewsGenie - Smart News App',
-            icon:               '/assets/work-2.png',
+            icon:               '/assets/work-3.png',
             description:        'BART · Supabase · Collaborative Filtering',
             detailedDescription: 'AI-powered news aggregator with BART transformer summarization and a collaborative filtering recommendation engine. Delivers personalized feeds stored on Supabase with real-time updates.',
             tech:               ['BART', 'Supabase', 'React', 'Python', 'ML'],
@@ -158,7 +158,7 @@ export const WORK = {
         },
         {
             name:               'Blind Reader App',
-            icon:               '/assets/work-3.png',
+            icon:               '/assets/work-4.png',
             description:        'BLIP · T5 · Bark TTS · Accessibility',
             detailedDescription: 'Accessibility app for visually impaired users combining BLIP image captioning, T5 text summarization, and Bark TTS audio output — making digital content fully accessible through AI-powered audio descriptions.',
             tech:               ['BLIP', 'T5', 'Bark TTS', 'Python', 'AI'],
@@ -166,7 +166,7 @@ export const WORK = {
         },
         {
             name:               'OCR-to-Excel Pipeline',
-            icon:               '/assets/work-4.png',
+            icon:               '/assets/project-icon.png',
             description:        'Computer Vision · Python · Automation',
             detailedDescription: 'Automated pipeline that extracts structured data from scanned documents and images using computer vision and OCR. Converts unstructured image text into organized Excel/CSV files, reducing manual data entry by over 90%.',
             tech:               ['OpenCV', 'Python', 'Tesseract', 'Pandas'],
