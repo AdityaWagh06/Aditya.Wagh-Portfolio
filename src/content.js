@@ -137,7 +137,7 @@ export const WORK = {
             description:        'React · Node.js/Express · Supabase · Razorpay',
             detailedDescription: 'Full-stack e-learning platform with Google authentication, role-based student/admin dashboards, class-wise subjects, video lessons, test management, paid test unlocks with Razorpay, announcements, and a fully mobile-responsive UI. Deployed on Vercel (frontend) and Render (backend).',
             tech:               ['React', 'Node.js', 'Express', 'Supabase', 'Razorpay'],
-            link:               'https://a-to-z-education-j8j2.vercel.app',
+            link:               'https://atozeducation.study',
             linkLabel:          'Live →',
         },
         {
