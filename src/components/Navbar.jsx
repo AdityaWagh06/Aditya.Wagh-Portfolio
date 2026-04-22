@@ -6,6 +6,20 @@ export default function Navbar() {
     const navRef = useRef();
     const navLinkRef = useRef();
 
+    const applyTheme = (theme) => {
+        const root = document.documentElement;
+        const body = document.body;
+
+        root.classList.toggle('dark', theme === 'dark');
+
+        body.classList.toggle('bg-black', theme === 'dark');
+        body.classList.toggle('text-white', theme === 'dark');
+        body.classList.toggle('bg-white', theme === 'light');
+        body.classList.toggle('text-black', theme === 'light');
+
+        localStorage.theme = theme;
+    }
+
     const openMenu = () => {
         sideMenuRef.current.style.transform = 'translateX(-16rem)';
     }
@@ -13,12 +27,7 @@ export default function Navbar() {
         sideMenuRef.current.style.transform = 'translateX(16rem)';
     }
     const toggleTheme = () => {
-        document.documentElement.classList.toggle('dark');
-        if (document.documentElement.classList.contains('dark')) {
-            localStorage.theme = 'dark';
-        } else {
-            localStorage.theme = 'light';
-        }
+        applyTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark');
     }
 
     useEffect(() => {
@@ -34,11 +43,7 @@ export default function Navbar() {
 
         window.addEventListener('scroll', handleScroll);
 
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
+        applyTheme(localStorage.theme === 'light' ? 'light' : 'dark');
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, [])
