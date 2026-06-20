@@ -173,6 +173,43 @@ export const WORK = {
             link:               'https://github.com/AdityaWagh06',
         },
     ],
+    freelance: {
+        subtitle: 'Freelance work focused on practical, production-ready solutions for founders, creators, and small teams.',
+        services: [
+            {
+                name: 'Landing pages & portfolio sites',
+                description: 'Fast, responsive websites designed to convert visitors and present your brand clearly.',
+            },
+            {
+                name: 'Web apps & dashboards',
+                description: 'Custom React-based dashboards, admin panels, and internal tools for real workflows.',
+            },
+            {
+                name: 'Automation & AI integrations',
+                description: 'Workflow automation, document processing, and AI-powered features that save time.',
+            },
+        ],
+        projects: [
+            {
+                name: 'A to Z Education',
+                icon: '/assets/atoz.png',
+                description: 'React · Node.js/Express · Supabase · Razorpay',
+                detailedDescription: 'Full-stack e-learning platform with Google authentication, role-based student/admin dashboards, class-wise subjects, video lessons, test management, paid test unlocks with Razorpay, announcements, and a fully mobile-responsive UI. Deployed on Vercel (frontend) and Render (backend).',
+                tech: ['React', 'Node.js', 'Express', 'Supabase', 'Razorpay'],
+                link: 'https://atozeducation.study',
+                linkLabel: 'Live →',
+            },
+            {
+                name: 'AdAlchemist',
+                icon: '/assets/alchemist.png',
+                description: 'AI · React · Tailwind · Prisma · Video & Image Generation',
+                detailedDescription: 'AdAlchemist is an AI-powered marketing creative generation platform that converts product images and prompts into high-converting static and short-form video ads. Built as a full-stack system (React + Vite frontend, Node/Express backend, Prisma + PostgreSQL), it features instant generation, video motion synthesis, a credit-based economy, and an admin dashboard. Live demo available.',
+                tech: ['React', 'Tailwind CSS', 'Framer Motion', 'Node.js', 'Prisma', 'PostgreSQL', 'Redis'],
+                link: 'https://www.ad-alchemist.shop/',
+                linkLabel: 'Live →',
+            },
+        ],
+    },
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
