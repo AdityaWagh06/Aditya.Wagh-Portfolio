@@ -207,7 +207,26 @@ export const WORK = {
                 tech: ['React', 'Tailwind CSS', 'Framer Motion', 'Node.js', 'Prisma', 'PostgreSQL', 'Redis'],
                 link: 'https://www.ad-alchemist.shop/',
                 linkLabel: 'Live →',
+
             },
+            {
+                name: 'XYZ Dental Care',
+                icon: '/assets/dental.png',
+                description: 'React · Tailwind CSS · Framer Motion',
+                detailedDescription: 'Modern dental clinic landing page featuring a premium healthcare UI with responsive layouts, smooth animations, service showcases, doctor profiles, testimonials, appointment call-to-actions, and a clean user experience. Designed as a professional business website template with a mobile-first approach.',
+                tech: ['React', 'Tailwind CSS', 'Framer Motion', 'React Icons'],
+                link: 'https://your-dental-demo.vercel.app',
+                linkLabel: 'Live →',
+            },
+            {
+                name: 'XYZ Restaurant',
+                icon: '/assets/restaurant.png',
+                description: 'React · Tailwind CSS · Framer Motion',
+                detailedDescription: 'Luxury restaurant landing page inspired by modern fine dining aesthetics. Features an immersive hero section, featured dishes, menu showcase, chef introduction, reservation CTA, gallery, testimonials, elegant animations, and a fully responsive design optimized for all devices.',
+                tech: ['React', 'Tailwind CSS', 'Framer Motion', 'React Icons', 'Swiper.js'],
+                link: 'https://your-restaurant-demo.vercel.app',
+                linkLabel: 'Live →',
+            },          
         ],
     },
 }
