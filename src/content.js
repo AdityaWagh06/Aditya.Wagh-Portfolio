@@ -215,7 +215,7 @@ export const WORK = {
                 description: 'React · Tailwind CSS · Framer Motion',
                 detailedDescription: 'Modern dental clinic landing page featuring a premium healthcare UI with responsive layouts, smooth animations, service showcases, doctor profiles, testimonials, appointment call-to-actions, and a clean user experience. Designed as a professional business website template with a mobile-first approach.',
                 tech: ['React', 'Tailwind CSS', 'Framer Motion', 'React Icons'],
-                link: 'https://your-dental-demo.vercel.app',
+                link: 'https://doc-portfoliodemo1.vercel.app/',
                 linkLabel: 'Live →',
             },
             {
@@ -224,7 +224,7 @@ export const WORK = {
                 description: 'React · Tailwind CSS · Framer Motion',
                 detailedDescription: 'Luxury restaurant landing page inspired by modern fine dining aesthetics. Features an immersive hero section, featured dishes, menu showcase, chef introduction, reservation CTA, gallery, testimonials, elegant animations, and a fully responsive design optimized for all devices.',
                 tech: ['React', 'Tailwind CSS', 'Framer Motion', 'React Icons', 'Swiper.js'],
-                link: 'https://your-restaurant-demo.vercel.app',
+                link: 'https://restaurant-template-demo2.vercel.app/',
                 linkLabel: 'Live →',
             },          
         ],
