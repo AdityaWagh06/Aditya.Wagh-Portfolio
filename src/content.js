@@ -166,7 +166,7 @@ export const WORK = {
         },
         {
             name:               'OCR-to-Excel Pipeline',
-            icon:               '/assets/project-icon.png',
+            icon:               '/assets/gymdemo.png',
             description:        'Computer Vision · Python · Automation',
             detailedDescription: 'Automated pipeline that extracts structured data from scanned documents and images using computer vision and OCR. Converts unstructured image text into organized Excel/CSV files, reducing manual data entry by over 90%.',
             tech:               ['OpenCV', 'Python', 'Tesseract', 'Pandas'],
@@ -208,6 +208,15 @@ export const WORK = {
                 link: 'https://www.ad-alchemist.shop/',
                 linkLabel: 'Live →',
 
+            },
+            {
+                name: 'FORGE Strength & Performance',
+                icon: '/assets/gymdemo.png',
+                description: 'React · Vite · Tailwind CSS · Fitness Brand Site',
+                detailedDescription: 'Engineered gym website built around strength, performance, and recovery. Features a metric-driven hero section, training pillars, coach profiles, membership tiers, weekly schedule, testimonials, and clear inquiry calls-to-action for a premium fitness brand experience.',
+                tech: ['React', 'Vite', 'Tailwind CSS', 'Responsive UI'],
+                link: 'https://gym-website-demo-gamma.vercel.app/',
+                linkLabel: 'Live →',
             },
             {
                 name: 'XYZ Dental Care',

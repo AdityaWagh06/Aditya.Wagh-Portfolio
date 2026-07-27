@@ -44,7 +44,7 @@ export default function Work() {
                         : 'bg-transparent text-gray-700 border-gray-300 hover:bg-lightHover dark:text-white dark:border-white/25 dark:hover:bg-darkHover'
                     }`}
                 >
-                    Selected Projects
+                    My projects
                 </button>
                 <button
                     onClick={() => setActiveTab('freelance')}
@@ -57,31 +57,31 @@ export default function Work() {
                 </button>
             </div>
 
-            <div className="max-w-6xl mx-auto mb-10 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-                <div className="rounded-2xl border border-gray-200 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-                    <p className="text-xs uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">{activeTab === 'projects' ? 'Personal work' : 'Freelance offering'}</p>
-                    <h3 className="mt-2 text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">
-                        {activeTab === 'projects' ? 'Selected projects I have built' : 'What I offer for freelance clients'}
-                    </h3>
-                    <p className="mt-3 text-sm sm:text-base leading-6 text-gray-600 dark:text-gray-300">
-                        {activeTab === 'projects'
-                            ? 'These are the larger builds and experimental products that show my work across AI, full-stack development, and automation.'
-                            : WORK.freelance?.subtitle}
-                    </p>
-                </div>
+            {activeTab === 'freelance' && (
+                <div className="max-w-6xl mx-auto mb-10 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+                    <div className="rounded-2xl border border-gray-200 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+                        <p className="text-xs uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">Freelance offering</p>
+                        <h3 className="mt-2 text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">
+                            What I offer for freelance clients
+                        </h3>
+                        <p className="mt-3 text-sm sm:text-base leading-6 text-gray-600 dark:text-gray-300">
+                            {WORK.freelance?.subtitle}
+                        </p>
+                    </div>
 
-                <div className="rounded-2xl border border-gray-200 bg-slate-50 p-6 dark:border-white/10 dark:bg-white/5">
-                    <p className="text-xs uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">Freelance services</p>
-                    <div className="mt-4 space-y-4">
-                        {WORK.freelance?.services?.map((service) => (
-                            <div key={service.name} className="rounded-xl border border-gray-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-black/20">
-                                <h4 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">{service.name}</h4>
-                                <p className="mt-1 text-xs sm:text-sm leading-5 text-gray-600 dark:text-gray-300">{service.description}</p>
-                            </div>
-                        ))}
+                    <div className="rounded-2xl border border-gray-200 bg-slate-50 p-6 dark:border-white/10 dark:bg-white/5">
+                        <p className="text-xs uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">Freelance services</p>
+                        <div className="mt-4 space-y-4">
+                            {WORK.freelance?.services?.map((service) => (
+                                <div key={service.name} className="rounded-xl border border-gray-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-black/20">
+                                    <h4 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">{service.name}</h4>
+                                    <p className="mt-1 text-xs sm:text-sm leading-5 text-gray-600 dark:text-gray-300">{service.description}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
 
             <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-10 gap-5">
                 {visibleItems.length > 0 ? (
