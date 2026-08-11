@@ -11,14 +11,19 @@ export default function Header() {
             <h1 className="text-2xl sm:text-5xl lg:text-[66px] font-Ovo leading-tight">{HEADER.headline}</h1>
             <p className="max-w-2xl mx-auto font-Ovo text-sm sm:text-base">{HEADER.bio}</p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-4">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-4">
                 <a href="#contact"
-                    className="px-8 sm:px-10 py-2.5 border rounded-full bg-gradient-to-r from-[#b820e6] to-[#da7d20] text-white flex items-center gap-2 text-sm sm:text-base dark:border-transparent">
+                    className="px-7 sm:px-9 py-2.5 border rounded-full bg-gradient-to-r from-[#b820e6] to-[#da7d20] text-white flex items-center gap-2 text-sm sm:text-base dark:border-transparent hover:opacity-90 transition">
                     contact me <img src="/assets/right-arrow-white.png" alt="" className="w-4" />
                 </a>
 
+                <a href="#freelance"
+                    className="px-7 sm:px-9 py-2.5 rounded-full border border-gray-300 dark:border-white/25 hover:bg-slate-100/70 dark:hover:bg-darkHover flex items-center gap-2 text-sm sm:text-base bg-white dark:bg-transparent dark:text-white transition">
+                    freelance work <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block" />
+                </a>
+
                 <a href={HEADER.resume} download
-                    className="px-8 sm:px-10 py-2.5 rounded-full border border-gray-300 dark:border-white/25 hover:bg-slate-100/70 dark:hover:bg-darkHover flex items-center gap-2 text-sm sm:text-base bg-white dark:bg-transparent dark:text-white">
+                    className="px-7 sm:px-9 py-2.5 rounded-full border border-gray-300 dark:border-white/25 hover:bg-slate-100/70 dark:hover:bg-darkHover flex items-center gap-2 text-sm sm:text-base bg-white dark:bg-transparent dark:text-white transition">
                     my resume <img src="/assets/download-icon.png" alt="" className="w-4 dark:invert" />
                 </a>
             </div>

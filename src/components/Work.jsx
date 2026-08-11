@@ -3,13 +3,57 @@ import { WORK } from '../content'
 
 export default function Work() {
     const [flipped, setFlipped] = useState(null)
-    const [activeTab, setActiveTab] = useState('projects')
+    const [activeTab, setActiveTab] = useState(() => {
+        if (typeof window !== 'undefined' && window.location.hash === '#freelance') {
+            return 'freelance'
+        }
+        return 'projects'
+    })
     const [showAllProjects, setShowAllProjects] = useState(false)
     const gridRef = useRef(null)
 
     const activeItems = activeTab === 'projects' ? WORK.projects : (WORK.freelance?.projects || [])
     const visibleItems = activeTab === 'projects' && !showAllProjects ? activeItems.slice(0, 4) : activeItems
     const hasMoreProjects = activeTab === 'projects' && WORK.projects.length > 4
+
+    useEffect(() => {
+        const handleHashChange = () => {
+            if (window.location.hash === '#freelance') {
+                setActiveTab('freelance')
+            } else if (window.location.hash === '#projects') {
+                setActiveTab('projects')
+            }
+        }
+
+        handleHashChange()
+        window.addEventListener('hashchange', handleHashChange)
+
+        const handleLinkClicks = (e) => {
+            const link = e.target.closest('a')
+            if (!link) return
+            const href = link.getAttribute('href')
+            if (href === '#freelance') {
+                setActiveTab('freelance')
+                const target = document.getElementById('freelance-section') || document.getElementById('projects')
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' })
+                }
+            } else if (href === '#projects') {
+                setActiveTab('projects')
+                const target = document.getElementById('projects')
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' })
+                }
+            }
+        }
+
+        document.addEventListener('click', handleLinkClicks)
+
+        return () => {
+            window.removeEventListener('hashchange', handleHashChange)
+            document.removeEventListener('click', handleLinkClicks)
+        }
+    }, [])
 
     useEffect(() => {
         const handleClick = (e) => {
@@ -31,29 +75,47 @@ export default function Work() {
     }, [activeTab])
 
     return (
-        <div id="projects" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
+        <div id="projects" className="relative w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
+            <div id="freelance" className="absolute -top-24 left-0 pointer-events-none" />
+            <div id="freelance-section" className="absolute -top-24 left-0 pointer-events-none" />
+
             <h4 className="text-center mb-2 text-lg font-Ovo">My portfolio</h4>
-            <h2 className="text-center text-3xl sm:text-5xl font-Ovo">Projects</h2>
-            <p className="text-center max-w-2xl mx-auto mt-5 mb-8 font-Ovo text-sm sm:text-base">{WORK.subtitle}</p>
+            <h2 className="text-center text-3xl sm:text-5xl font-Ovo">
+                {activeTab === 'freelance' ? 'Freelance Work' : 'Projects'}
+            </h2>
+            <p className="text-center max-w-2xl mx-auto mt-5 mb-8 font-Ovo text-sm sm:text-base">
+                {activeTab === 'freelance' ? (WORK.freelance?.subtitle || WORK.subtitle) : WORK.subtitle}
+            </p>
 
             <div className="flex items-center justify-center gap-3 mb-10">
                 <button
-                    onClick={() => setActiveTab('projects')}
+                    onClick={() => {
+                        setActiveTab('projects')
+                        if (window.history.replaceState) {
+                            window.history.replaceState(null, '', '#projects')
+                        }
+                    }}
                     className={`px-5 py-2 rounded-full text-sm sm:text-base font-medium border transition-all duration-300 ${activeTab === 'projects'
-                        ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-black dark:border-white'
+                        ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-black dark:border-white shadow-sm'
                         : 'bg-transparent text-gray-700 border-gray-300 hover:bg-lightHover dark:text-white dark:border-white/25 dark:hover:bg-darkHover'
                     }`}
                 >
                     My projects
                 </button>
                 <button
-                    onClick={() => setActiveTab('freelance')}
-                    className={`px-5 py-2 rounded-full text-sm sm:text-base font-medium border transition-all duration-300 ${activeTab === 'freelance'
-                        ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-black dark:border-white'
+                    onClick={() => {
+                        setActiveTab('freelance')
+                        if (window.history.replaceState) {
+                            window.history.replaceState(null, '', '#freelance')
+                        }
+                    }}
+                    className={`px-5 py-2 rounded-full text-sm sm:text-base font-medium border transition-all duration-300 flex items-center gap-2 ${activeTab === 'freelance'
+                        ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-black dark:border-white shadow-sm'
                         : 'bg-transparent text-gray-700 border-gray-300 hover:bg-lightHover dark:text-white dark:border-white/25 dark:hover:bg-darkHover'
                     }`}
                 >
                     Freelance Work
+                    <span className={`w-2 h-2 rounded-full ${activeTab === 'freelance' ? 'bg-emerald-400' : 'bg-emerald-500'}`} />
                 </button>
             </div>
 
