@@ -237,7 +237,7 @@ export const WORK = {
                 linkLabel: 'Live →',
             },
             {
-                name: 'Marcus Vance — Apex Protocol',
+                name: 'Online fitness coach',
                 icon: '/assets/marcusvance.png',
                 description: 'React · Vanilla CSS · Lucide Icons · AI Fitness Tools',
                 detailedDescription: 'High-converting online transformation coaching web app for elite fitness coaching. Features aggressive dark aesthetics, interactive Before/After comparison sliders, AI-powered macro and BMI metabolic calculators, 4-step intake qualification funnel, and embedded WhatsApp consultation booking.',
