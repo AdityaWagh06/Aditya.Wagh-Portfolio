@@ -235,7 +235,16 @@ export const WORK = {
                 tech: ['React', 'Tailwind CSS', 'Framer Motion', 'React Icons', 'Swiper.js'],
                 link: 'https://restaurant-template-demo2.vercel.app/',
                 linkLabel: 'Live →',
-            },          
+            },
+            {
+                name: 'Marcus Vance — Apex Protocol',
+                icon: '/assets/marcusvance.png',
+                description: 'React · Vanilla CSS · Lucide Icons · AI Fitness Tools',
+                detailedDescription: 'High-converting online transformation coaching web app for elite fitness coaching. Features aggressive dark aesthetics, interactive Before/After comparison sliders, AI-powered macro and BMI metabolic calculators, 4-step intake qualification funnel, and embedded WhatsApp consultation booking.',
+                tech: ['React', 'Vite', 'Vanilla CSS', 'Lucide React', 'AI Calculators'],
+                link: 'https://online-coach-website-pmr2.vercel.app/',
+                linkLabel: 'Live →',
+            },
         ],
     },
 }
