@@ -142,6 +142,15 @@ export const WORK = {
             linkLabel:          'Live →',
         },
         {
+            name:               'Saachi Skincare',
+            icon:               '/assets/saachi-skincare.png',
+            description:        'Next.js · Tailwind CSS · Framer Motion · Aesthetic Clinic',
+            detailedDescription: 'Luxury dermatology & aesthetic clinic website for Dr. Bhavin Chothani in Shrirampur, Maharashtra. Features a modern medical aesthetic design, interactive treatment showcases, sterile procedure suite gallery, doctor diagnostic profiles, patient review metrics, and seamless appointment booking.',
+            tech:               ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+            link:               'https://saachi-skincare.vercel.app/',
+            linkLabel:          'Live →',
+        },
+        {
             name:               'NeuroQuery - NLP to SQL Chatbot',
             icon:               '/assets/work-2.png',
             description:        'NLP · Flask · React · 96% Accuracy',
@@ -198,6 +207,15 @@ export const WORK = {
                 detailedDescription: 'Full-stack e-learning platform with Google authentication, role-based student/admin dashboards, class-wise subjects, video lessons, test management, paid test unlocks with Razorpay, announcements, and a fully mobile-responsive UI. Deployed on Vercel (frontend) and Render (backend).',
                 tech: ['React', 'Node.js', 'Express', 'Supabase', 'Razorpay'],
                 link: 'https://atozeducation.study',
+                linkLabel: 'Live →',
+            },
+            {
+                name: 'Saachi Skincare',
+                icon: '/assets/saachi-skincare.png',
+                description: 'Next.js · Tailwind CSS · Framer Motion · Aesthetic Clinic',
+                detailedDescription: 'Luxury dermatology & aesthetic clinic website for Dr. Bhavin Chothani in Shrirampur, Maharashtra. Features a modern medical aesthetic design, interactive treatment showcases, sterile procedure suite gallery, doctor diagnostic profiles, patient review metrics, and seamless appointment booking.',
+                tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+                link: 'https://saachi-skincare.vercel.app/',
                 linkLabel: 'Live →',
             },
             {
