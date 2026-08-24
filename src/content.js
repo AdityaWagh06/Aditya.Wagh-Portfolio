@@ -151,6 +151,15 @@ export const WORK = {
             linkLabel:          'Live →',
         },
         {
+            name:               'CraveCraft Cafe & Roastery',
+            icon:               '/assets/cafe-demo-2.png',
+            description:        'Next.js · Tailwind CSS · Artisanal Cafe & Roastery',
+            detailedDescription: 'Signature artisanal cafe & roastery brand website for Pune. Features single-origin estate coffee showcases, thick cold brew menus, gourmet burger & sizzler highlights, festival promo box cards, multi-outlet store locator, and online ordering flow.',
+            tech:               ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+            link:               'https://cravecraft-cafe-pune.vercel.app/',
+            linkLabel:          'Live →',
+        },
+        {
             name:               'NeuroQuery - NLP to SQL Chatbot',
             icon:               '/assets/work-2.png',
             description:        'NLP · Flask · React · 96% Accuracy',
@@ -216,6 +225,15 @@ export const WORK = {
                 detailedDescription: 'Luxury dermatology & aesthetic clinic website for Dr. Bhavin Chothani in Shrirampur, Maharashtra. Features a modern medical aesthetic design, interactive treatment showcases, sterile procedure suite gallery, doctor diagnostic profiles, patient review metrics, and seamless appointment booking.',
                 tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
                 link: 'https://saachi-skincare.vercel.app/',
+                linkLabel: 'Live →',
+            },
+            {
+                name: 'CraveCraft Cafe & Roastery',
+                icon: '/assets/cafe-demo-2.png',
+                description: 'Next.js · Tailwind CSS · Artisanal Cafe & Roastery',
+                detailedDescription: 'Signature artisanal cafe & roastery brand website for Pune. Features single-origin estate coffee showcases, thick cold brew menus, gourmet burger & sizzler highlights, festival promo box cards, multi-outlet store locator, and online ordering flow.',
+                tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+                link: 'https://cravecraft-cafe-pune.vercel.app/',
                 linkLabel: 'Live →',
             },
             {
