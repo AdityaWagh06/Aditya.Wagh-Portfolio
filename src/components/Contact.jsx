@@ -26,7 +26,7 @@ export default function Contact() {
     };
 
     return (
-        <div id="contact" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20 bg-[url('./assets/footer-bg-color.png')] bg-no-repeat bg-[length:90%_auto] bg-center dark:bg-none">
+        <div id="contact" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20 bg-[url('/assets/footer-bg-color.png')] bg-no-repeat bg-[length:90%_auto] bg-center dark:bg-none">
 
             <h4 className="text-center mb-2 text-lg font-Ovo">Connect with me</h4>
             <h2 className="text-center text-3xl sm:text-5xl font-Ovo">Get in touch</h2>
@@ -44,7 +44,7 @@ export default function Contact() {
                 <textarea rows="6" placeholder="Enter your message" className="w-full px-4 py-2.5 focus:ring-1 outline-none border border-gray-300 dark:border-white/30 rounded-md bg-white mb-6 dark:bg-darkHover/30 text-sm sm:text-base" required name="message"></textarea>
                 <button type='submit' className="py-2.5 px-6 sm:px-8 w-max flex items-center justify-between gap-2 bg-black/80 text-white rounded-full mx-auto hover:bg-black duration-500 dark:bg-transparent dark:border dark:border-white/30 dark:hover:bg-darkHover text-sm sm:text-base">
                     Submit now
-                    <img src="./assets/right-arrow-white.png" alt="" className="w-4" />
+                    <img src="/assets/right-arrow-white.png" alt="" className="w-4" />
                 </button>
                 <p className='mt-4 text-center'>{result}</p>
             </form>
