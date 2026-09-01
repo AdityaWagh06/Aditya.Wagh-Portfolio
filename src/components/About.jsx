@@ -5,28 +5,28 @@ export default function About() {
     const photos = ABOUT.photos
 
     const photoStripRef = useRef()
-    const containerRef  = useRef()
-    const offsetX    = useRef(-280)
-    const CYCLE      = 1204
-    const SPEED      = 0.4
-    const rafId      = useRef()
-    const isHover    = useRef(false)
+    const containerRef = useRef()
+    const offsetX = useRef(-280)
+    const CYCLE = 1204
+    const SPEED = 0.4
+    const rafId = useRef()
+    const isHover = useRef(false)
     const lastMouseX = useRef(null)
     // touch swipe state
     const touchLastX = useRef(null)
-    const touchVel   = useRef(0)
+    const touchVel = useRef(0)
 
     useEffect(() => {
-        const strip     = photoStripRef.current
+        const strip = photoStripRef.current
         const container = containerRef.current
         if (!strip || !container) return
 
         strip.style.transition = 'none'
-        strip.style.transform  = `translateX(${offsetX.current}px)`
+        strip.style.transform = `translateX(${offsetX.current}px)`
 
         const wrap = () => {
             if (offsetX.current < -CYCLE) offsetX.current += CYCLE
-            else if (offsetX.current > 0)  offsetX.current -= CYCLE
+            else if (offsetX.current > 0) offsetX.current -= CYCLE
         }
 
         // ── RAF loop: auto-scroll when mouse is not over strip ─────────────
@@ -43,7 +43,7 @@ export default function About() {
         // ── Mouse: hover = track cursor delta directly (fast, 1:1) ─────────
         const onMouseEnter = () => { isHover.current = true; lastMouseX.current = null }
         const onMouseLeave = () => { isHover.current = false; lastMouseX.current = null }
-        const onMouseMove  = (e) => {
+        const onMouseMove = (e) => {
             if (!isHover.current) return
             if (lastMouseX.current === null) { lastMouseX.current = e.clientX; return }
             const delta = e.clientX - lastMouseX.current
@@ -56,14 +56,14 @@ export default function About() {
         // ── Touch: swipe with momentum ─────────────────────────────────────
         const onTouchStart = (e) => {
             touchLastX.current = e.touches[0].clientX
-            touchVel.current   = 0
-            isHover.current    = true
+            touchVel.current = 0
+            isHover.current = true
         }
         const onTouchMove = (e) => {
             const x = e.touches[0].clientX
             const delta = x - touchLastX.current
-            touchVel.current  = delta
-            offsetX.current  += delta
+            touchVel.current = delta
+            offsetX.current += delta
             wrap()
             strip.style.transform = `translateX(${offsetX.current}px)`
             touchLastX.current = x
@@ -82,24 +82,24 @@ export default function About() {
 
         container.addEventListener('mouseenter', onMouseEnter)
         container.addEventListener('mouseleave', onMouseLeave)
-        container.addEventListener('mousemove',  onMouseMove)
+        container.addEventListener('mousemove', onMouseMove)
         container.addEventListener('touchstart', onTouchStart, { passive: true })
-        container.addEventListener('touchmove',  onTouchMove,  { passive: true })
-        container.addEventListener('touchend',   onTouchEnd)
+        container.addEventListener('touchmove', onTouchMove, { passive: true })
+        container.addEventListener('touchend', onTouchEnd)
 
         return () => {
             cancelAnimationFrame(rafId.current)
             container.removeEventListener('mouseenter', onMouseEnter)
             container.removeEventListener('mouseleave', onMouseLeave)
-            container.removeEventListener('mousemove',  onMouseMove)
+            container.removeEventListener('mousemove', onMouseMove)
             container.removeEventListener('touchstart', onTouchStart)
-            container.removeEventListener('touchmove',  onTouchMove)
-            container.removeEventListener('touchend',   onTouchEnd)
+            container.removeEventListener('touchmove', onTouchMove)
+            container.removeEventListener('touchend', onTouchEnd)
         }
     }, [])
 
     const tools = ABOUT.tools
-    const data  = ABOUT.stats
+    const data = ABOUT.stats
 
     return (
         <div id="about" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
