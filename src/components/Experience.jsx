@@ -4,18 +4,18 @@ import { EXPERIENCE, HEADER } from '../content'
 // ── inline SVG icons ─────────────────────────────────────────────────────────
 const MapPin = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 shrink-0">
-        <path d="M12 2a7 7 0 0 0-7 7c0 4.9 7 13 7 13s7-8.1 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
+        <path d="M12 2a7 7 0 0 0-7 7c0 4.9 7 13 7 13s7-8.1 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" />
     </svg>
 )
 const Briefcase = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 shrink-0">
-        <path d="M20 7h-3V6a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3v1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2ZM10 6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1h-4V6Z"/>
+        <path d="M20 7h-3V6a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3v1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2ZM10 6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1h-4V6Z" />
     </svg>
 )
 
 // ── mobile entry: scroll-triggered fade-in, no card border ─────────────────
 function MobileEntry({ item }) {
-    const ref     = useRef(null)
+    const ref = useRef(null)
     const [vis, setVis] = useState(false)
     useEffect(() => {
         const obs = new IntersectionObserver(
@@ -70,29 +70,29 @@ function MobileEntry({ item }) {
 
 // ── scroll-driven animated timeline ─────────────────────────────────────────
 export default function Experience() {
-    const containerRef  = useRef(null)
-    const mobileRef     = useRef(null)
-    const [fillPx,    setFillPx]    = useState(0)
-    const [totalH,    setTotalH]    = useState(0)
-    const [mobFill,   setMobFill]   = useState(0)
-    const [mobH,      setMobH]      = useState(0)
+    const containerRef = useRef(null)
+    const mobileRef = useRef(null)
+    const [fillPx, setFillPx] = useState(0)
+    const [totalH, setTotalH] = useState(0)
+    const [mobFill, setMobFill] = useState(0)
+    const [mobH, setMobH] = useState(0)
 
     useEffect(() => {
         const onScroll = () => {
             // desktop
             if (containerRef.current) {
-                const el   = containerRef.current
+                const el = containerRef.current
                 const rect = el.getBoundingClientRect()
-                const h    = el.offsetHeight
+                const h = el.offsetHeight
                 setTotalH(h)
                 const scrolled = window.innerHeight * 0.6 - rect.top
                 setFillPx(Math.min(h, Math.max(0, scrolled)))
             }
             // mobile
             if (mobileRef.current) {
-                const el   = mobileRef.current
+                const el = mobileRef.current
                 const rect = el.getBoundingClientRect()
-                const h    = el.offsetHeight
+                const h = el.offsetHeight
                 setMobH(h)
                 const scrolled = window.innerHeight * 0.6 - rect.top
                 setMobFill(Math.min(h, Math.max(0, scrolled)))
@@ -104,8 +104,8 @@ export default function Experience() {
     }, [])
 
     // keep dot centres inside container bounds
-    const dotCY    = Math.min(totalH - 22, Math.max(22, fillPx))
-    const mobDotCY = Math.min(mobH - 18,   Math.max(18, mobFill))
+    const dotCY = Math.min(totalH - 22, Math.max(22, fillPx))
+    const mobDotCY = Math.min(mobH - 18, Math.max(18, mobFill))
 
     return (
         <section

@@ -24,7 +24,7 @@ export default function Services() {
     return (
         <div id="skills" className="w-full px-[5%] sm:px-[8%] lg:px-[12%] py-10 scroll-mt-20">
             <h4 className="text-center mb-2 text-lg font-Ovo">My Skillset</h4>
-           
+
             <h2 className="text-center text-3xl sm:text-5xl font-Ovo">My Skills</h2>
             <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo text-sm sm:text-base">{SKILLS.subtitle}</p>
 

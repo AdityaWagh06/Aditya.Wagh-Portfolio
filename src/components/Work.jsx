@@ -98,7 +98,7 @@ export default function Work() {
                     className={`px-5 py-2 rounded-full text-sm sm:text-base font-medium border transition-all duration-300 ${activeTab === 'projects'
                         ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-black dark:border-white shadow-sm'
                         : 'bg-transparent text-gray-700 border-gray-300 hover:bg-lightHover dark:text-white dark:border-white/25 dark:hover:bg-darkHover'
-                    }`}
+                        }`}
                 >
                     My projects
                 </button>
@@ -112,7 +112,7 @@ export default function Work() {
                     className={`px-5 py-2 rounded-full text-sm sm:text-base font-medium border transition-all duration-300 flex items-center gap-2 ${activeTab === 'freelance'
                         ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-black dark:border-white shadow-sm'
                         : 'bg-transparent text-gray-700 border-gray-300 hover:bg-lightHover dark:text-white dark:border-white/25 dark:hover:bg-darkHover'
-                    }`}
+                        }`}
                 >
                     Freelance Work
                     <span className={`w-2 h-2 rounded-full ${activeTab === 'freelance' ? 'bg-emerald-400' : 'bg-emerald-500'}`} />
@@ -221,8 +221,8 @@ export default function Work() {
                     className="w-max flex items-center justify-center gap-2 text-gray-700 border border-gray-300 dark:border-white/25 hover:bg-slate-100/70 dark:hover:bg-darkHover rounded-full py-2 px-6 sm:px-8 mx-auto my-10 sm:my-20 duration-300 dark:text-white text-sm sm:text-base"
                 >
                     {showAllProjects ? 'Show less' : 'Show more'}
-                    <img src="./assets/right-arrow-bold.png" alt="" className="w-4 dark:hidden" />
-                    <img src="./assets/right-arrow-bold-dark.png" alt="" className="w-4 hidden dark:block" />
+                    <img src="/assets/right-arrow-bold.png" alt="" className="w-4 dark:hidden" />
+                    <img src="/assets/right-arrow-bold-dark.png" alt="" className="w-4 hidden dark:block" />
                 </button>
             )}
         </div>
