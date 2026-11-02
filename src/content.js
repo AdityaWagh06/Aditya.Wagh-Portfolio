@@ -1,433 +1,239 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// src/content.js — Single source of truth for ALL portfolio content
-// Edit only this file to update any text, links, images, or data on the site.
-// ─────────────────────────────────────────────────────────────────────────────
+// src/content.js
+// Single source of truth for all portfolio content.
+// House style: short lines, no em-dashes, no invented numbers.
 
-// ── Src/assets imports (Vite processes these at build time) ──────────────────
 import profileImg from './assets/DP.jpg'
 import resume     from './assets/Aditya_Wagh_Resume.pdf'
-import photo1     from './assets/1.jpeg'
-import photo2     from './assets/2.jpeg'
-import photo3     from './assets/3.jpeg'
-import photo5     from './assets/5.jpeg'
-import certDoc    from './assets/6.pdf'
-import droneWorkshopImg from './assets/drone workshop.jpg'
-import nssLetterImg from './assets/nss.jpg.jpeg'
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SITE — global info used in multiple places
-// ─────────────────────────────────────────────────────────────────────────────
+// SITE: global info
 export const SITE = {
     name:         'Aditya Wagh',
-    logoText:     'aditya.',
     email:        'adityawagh2525@gmail.com',
     github:       'https://github.com/AdityaWagh06',
     linkedin:     'https://www.linkedin.com/in/aditya-wagh25/',
-    instagram:    'https://www.instagram.com/_adityawagh_7',
+    x:            'https://x.com/adityawagh_94',
+    medium:       'https://medium.com/@adityawagh2525',
     web3formsKey: 'e37a6ac1-322f-43bd-88d2-cbcb8c07bfe2',
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// NAVBAR — navigation links
-// ─────────────────────────────────────────────────────────────────────────────
-export const NAV_LINKS = [
-    { label: 'Home',       href: '#top' },
-    { label: 'About me',   href: '#about' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Skills',     href: '#skills' },
-    { label: 'Projects',   href: '#projects' },
-    { label: 'Freelance',  href: '#freelance' },
-    { label: 'Contact me', href: '#contact' },
-]
-
-// ─────────────────────────────────────────────────────────────────────────────
-// HEADER — hero section
-// ─────────────────────────────────────────────────────────────────────────────
-export const HEADER = {
-    greeting:   "Hi! I'm Aditya Wagh",
-    headline:   'Software developer & AI researcher.',
-    bio:        'Final-year B.Tech student in CS (AI/ML) at VIIT Pune with 4 IEEE publications. I build full-stack applications, work with machine learning and generative AI, and love turning data into real-world impact.',
     profileImg,
     resume,
+    // Banner video at the top of the page (file in public/). Set to null to show the
+    // designed ModelDiff banner instead.
+    bannerVideo:  '/banner.mp4',
+    bannerPoster: '/banner-poster.jpg',
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ABOUT — about section
-// ─────────────────────────────────────────────────────────────────────────────
-export const ABOUT = {
-    bio: 'I am a final-year B.Tech student in Computer Science (AI/ML) at VIIT Pune. With 4 IEEE publications, research experience at IIT Bombay FOSSEE, and internship work building production tools and educational platforms, I enjoy working across full-stack development, data science, and AI research. Currently exploring opportunities in software engineering, machine learning, and generative AI.',
+// NAV (main page)
+export const NAV_LINKS = [
+    { label: 'Projects',      href: '#projects' },
+    { label: 'Experience',    href: '#experience' },
+    { label: 'About',         href: '#about' },
+    { label: 'Papers',        href: '#papers' },
+    { label: 'Contact',       href: '#contact' },
+]
 
-    // Photos shown in the scroll-driven strip (add/remove/reorder freely)
-    photos: [photo1, photo2, photo3, photo5],
-
-    // Three stat cards below the bio
+// HERO: bento header
+export const HERO = {
+    eyebrow:  'AI Engineer',
+    title:    'Aditya Wagh',
+    handle:   '@adityawagh_94',
+    line:     'I build LLM apps, RAG pipelines and tools for AI coding agents, and I make sure they are tested.',
+    location: ['Pune, India', 'Stuttgart, Germany'],
+    status:   'Open to AI and software engineering roles',
+    roles:    ['AI Engineer', 'Software Engineer', 'Open-source maintainer', 'LLM and RAG builder'],
+    now: [
+        { label: 'Building', value: 'ModelDiff and Veriflow' },
+        { label: 'Founder',  value: 'OpenWave India' },
+        { label: 'Co-founder', value: 'Nailed It Bro' },
+        { label: 'Next',     value: 'M.Sc. CS, University of Stuttgart' },
+    ],
+    highlights: [
+        { k: '3',      v: 'papers in IEEE Xplore' },
+        { k: 'PR #46', v: 'merged in openapi/gknowledge' },
+        { k: '8.42',   v: 'CGPA, B.Tech CSE (AI & ML)' },
+    ],
+    // short counts for the mobile profile header
     stats: [
-        {
-            name:        'Languages',
-            icon1:       '/assets/code-icon.png',
-            icon2:       '/assets/code-icon-dark.png',
-            description: 'Python, Java, JavaScript, C++, SQL, HTML/CSS, Bash',
-        },
-        {
-            name:        'Education',
-            icon1:       '/assets/edu-icon.png',
-            icon2:       '/assets/edu-icon-dark.png',
-            description: 'B.Tech CS (AI/ML) — VIIT Pune (2022–2026) · CGPA 8.32',
-        },
-        {
-            name:        'Projects',
-            icon1:       '/assets/project-icon.png',
-            icon2:       '/assets/project-icon-dark.png',
-            description: '4 IEEE publications & 5+ projects in AI/ML and Full Stack',
-        },
+        { k: '3',    v: 'IEEE papers' },
+        { k: '1',    v: 'merged upstream PR' },
+        { k: '8.42', v: 'CGPA' },
     ],
-
-    // Tool icons row
-    tools: [
-        { name: 'vscode',   icon: '/assets/vscode.png' },
-        { name: 'firebase', icon: '/assets/firebase.png' },
-        { name: 'mongodb',  icon: '/assets/mongodb.png' },
-        { name: 'figma',    icon: '/assets/figma.png' },
-        { name: 'git',      icon: '/assets/git.png' },
+    meta: [
+        { icon: 'pin',  text: 'Pune, India' },
+        { icon: 'work', text: 'Founder, OpenWave India' },
+        { icon: 'cap',  text: 'B.Tech CSE (AI & ML), 2026' },
     ],
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SKILLS — skills section (formerly Services)
-// ─────────────────────────────────────────────────────────────────────────────
-export const SKILLS = {
-    subtitle: 'From building scalable software to training ML models and writing research papers — here is what I can bring to your team.',
-    items: [
-        {
-            name:        'Software Development',
-            icon:        '/assets/mobile-icon.png',
-            description: 'Designing and building full-stack applications with React, Node.js, Express.js, Flask, and TailwindCSS backed by MongoDB, MySQL, and Supabase.',
-            skills:      ['React', 'Node.js', 'Express.js', 'Flask', 'TailwindCSS', 'MongoDB', 'MySQL', 'Supabase', 'REST APIs', 'JavaScript', 'TypeScript', 'HTML / CSS'],
-        },
-        {
-            name:        'Machine Learning & AI',
-            icon:        '/assets/web-icon.png',
-            description: 'Developing intelligent systems with Scikit-learn, TensorFlow, HuggingFace, and OpenCV — spanning NLP, computer vision, and predictive modelling.',
-            skills:      ['Scikit-learn', 'TensorFlow', 'Keras', 'HuggingFace', 'OpenCV', 'Pandas', 'NumPy', 'NLP', 'Computer Vision', 'BERT', 'Feature Engineering', 'Predictive Modelling'],
-        },
-        {
-            name:        'GenAI & LLMs',
-            icon:        '/assets/ui-icon.png',
-            description: 'Building applications powered by large language models, RAG pipelines, BART summarization, and generative AI frameworks.',
-            skills:      ['OpenAI API', 'LangChain', 'RAG Pipelines', 'BART', 'T5', 'BLIP', 'Prompt Engineering', 'Vector Databases', 'HuggingFace Transformers', 'Generative Models'],
-        },
-        {
-            name:        'Data Science & Research',
-            icon:        '/assets/graphics-icon.png',
-            description: 'Extracting insights from data, publishing research (4 IEEE papers), and applying statistical methods to solve real-world problems.',
-            skills:      ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Statistical Analysis', 'IEEE Publishing', 'Data Visualization', 'EDA', 'Jupyter Notebooks'],
-        },
+// ModelDiff comparison shown in the hero terminal. Taken from the project README,
+// where the outputs are hand-written fixtures (labelled as an example on the page).
+export const TERMINAL = {
+    title: 'modeldiff · example on fixtures',
+    lines: [
+        { t: 'cmd',  text: 'modeldiff compare baseline.json candidate.json' },
+        { t: 'info', text: 'support-assistant · baseline-q8 → candidate-q4' },
+        { t: 'row',  name: 'ticket-json',        status: 'REGRESSED' },
+        { t: 'row',  name: 'intent-billing',     status: 'REGRESSED' },
+        { t: 'row',  name: 'tool-lookup',        status: 'REGRESSED' },
+        { t: 'row',  name: 'sentiment-positive', status: 'FIXED' },
+        { t: 'row',  name: 'summary-length',     status: 'CHANGED' },
+        { t: 'info', text: '9 cases · 4 regressed · 1 fixed · exit 1' },
     ],
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// WORK — projects section
-// ─────────────────────────────────────────────────────────────────────────────
-export const WORK = {
-    subtitle:  'Explore a collection of projects showcasing my expertise in AI/ML, web development, and building intelligent applications.',
-    githubUrl: 'https://github.com/AdityaWagh06',
-    projects: [
-        {
-            name:               'A to Z Education',
-            icon:               '/assets/work-1.png',
-            description:        'React · Node.js/Express · Supabase · Razorpay',
-            detailedDescription: 'Full-stack e-learning platform with Google authentication, role-based student/admin dashboards, class-wise subjects, video lessons, test management, paid test unlocks with Razorpay, announcements, and a fully mobile-responsive UI. Deployed on Vercel (frontend) and Render (backend).',
-            tech:               ['React', 'Node.js', 'Express', 'Supabase', 'Razorpay'],
-            link:               'https://atozeducation.study',
-            linkLabel:          'Live →',
-        },
-        {
-            name:               'Saachi Skincare',
-            icon:               '/assets/saachi-skincare.png',
-            description:        'Next.js · Tailwind CSS · Framer Motion · Aesthetic Clinic',
-            detailedDescription: 'Luxury dermatology & aesthetic clinic website for Dr. Bhavin Chothani in Shrirampur, Maharashtra. Features a modern medical aesthetic design, interactive treatment showcases, sterile procedure suite gallery, doctor diagnostic profiles, patient review metrics, and seamless appointment booking.',
-            tech:               ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
-            link:               'https://saachi-skincare.vercel.app/',
-            linkLabel:          'Live →',
-        },
-        {
-            name:               'CraveCraft Cafe & Roastery',
-            icon:               '/assets/cafe-demo-2.png',
-            description:        'Next.js · Tailwind CSS · Artisanal Cafe & Roastery',
-            detailedDescription: 'Signature artisanal cafe & roastery brand website for Pune. Features single-origin estate coffee showcases, thick cold brew menus, gourmet burger & sizzler highlights, festival promo box cards, multi-outlet store locator, and online ordering flow.',
-            tech:               ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
-            link:               'https://cravecraft-cafe-pune.vercel.app/',
-            linkLabel:          'Live →',
-        },
-        {
-            name:               'NeuroQuery - NLP to SQL Chatbot',
-            icon:               '/assets/work-2.png',
-            description:        'NLP · Flask · React · 96% Accuracy',
-            detailedDescription: 'Converts plain English queries into SQL commands using NLP techniques. Achieves 96% accuracy on complex multi-table query translations with schema inference. Built with a Flask backend and a React frontend.',
-            tech:               ['NLP', 'Flask', 'React', 'MySQL', 'Python'],
-            link:               'https://github.com/AdityaWagh06',
-        },
-        {
-            name:               'NewsGenie - Smart News App',
-            icon:               '/assets/work-3.png',
-            description:        'BART · Supabase · Collaborative Filtering',
-            detailedDescription: 'AI-powered news aggregator with BART transformer summarization and a collaborative filtering recommendation engine. Delivers personalized feeds stored on Supabase with real-time updates.',
-            tech:               ['BART', 'Supabase', 'React', 'Python', 'ML'],
-            link:               'https://github.com/AdityaWagh06',
-        },
-        {
-            name:               'Blind Reader App',
-            icon:               '/assets/work-4.png',
-            description:        'BLIP · T5 · Bark TTS · Accessibility',
-            detailedDescription: 'Accessibility app for visually impaired users combining BLIP image captioning, T5 text summarization, and Bark TTS audio output — making digital content fully accessible through AI-powered audio descriptions.',
-            tech:               ['BLIP', 'T5', 'Bark TTS', 'Python', 'AI'],
-            link:               'https://github.com/AdityaWagh06',
-        },
-        {
-            name:               'OCR-to-Excel Pipeline',
-            icon:               '/assets/gymdemo.png',
-            description:        'Computer Vision · Python · Automation',
-            detailedDescription: 'Automated pipeline that extracts structured data from scanned documents and images using computer vision and OCR. Converts unstructured image text into organized Excel/CSV files, reducing manual data entry by over 90%.',
-            tech:               ['OpenCV', 'Python', 'Tesseract', 'Pandas'],
-            link:               'https://github.com/AdityaWagh06',
-        },
-    ],
-    freelance: {
-        subtitle: 'Freelance work focused on practical, production-ready solutions for founders, creators, and small teams.',
-        services: [
-            {
-                name: 'Landing pages & portfolio sites',
-                description: 'Fast, responsive websites designed to convert visitors and present your brand clearly.',
-            },
-            {
-                name: 'Web apps & dashboards',
-                description: 'Custom React-based dashboards, admin panels, and internal tools for real workflows.',
-            },
-            {
-                name: 'Automation & AI integrations',
-                description: 'Workflow automation, document processing, and AI-powered features that save time.',
-            },
-        ],
-        projects: [
-            {
-                name: 'A to Z Education',
-                icon: '/assets/atoz.png',
-                description: 'React · Node.js/Express · Supabase · Razorpay',
-                detailedDescription: 'Full-stack e-learning platform with Google authentication, role-based student/admin dashboards, class-wise subjects, video lessons, test management, paid test unlocks with Razorpay, announcements, and a fully mobile-responsive UI. Deployed on Vercel (frontend) and Render (backend).',
-                tech: ['React', 'Node.js', 'Express', 'Supabase', 'Razorpay'],
-                link: 'https://atozeducation.study',
-                linkLabel: 'Live →',
-            },
-            {
-                name: 'Saachi Skincare',
-                icon: '/assets/saachi-skincare.png',
-                description: 'Next.js · Tailwind CSS · Framer Motion · Aesthetic Clinic',
-                detailedDescription: 'Luxury dermatology & aesthetic clinic website for Dr. Bhavin Chothani in Shrirampur, Maharashtra. Features a modern medical aesthetic design, interactive treatment showcases, sterile procedure suite gallery, doctor diagnostic profiles, patient review metrics, and seamless appointment booking.',
-                tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
-                link: 'https://saachi-skincare.vercel.app/',
-                linkLabel: 'Live →',
-            },
-            {
-                name: 'CraveCraft Cafe & Roastery',
-                icon: '/assets/cafe-demo-2.png',
-                description: 'Next.js · Tailwind CSS · Artisanal Cafe & Roastery',
-                detailedDescription: 'Signature artisanal cafe & roastery brand website for Pune. Features single-origin estate coffee showcases, thick cold brew menus, gourmet burger & sizzler highlights, festival promo box cards, multi-outlet store locator, and online ordering flow.',
-                tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
-                link: 'https://cravecraft-cafe-pune.vercel.app/',
-                linkLabel: 'Live →',
-            },
-            {
-                name: 'AdAlchemist',
-                icon: '/assets/alchemist.png',
-                description: 'AI · React · Tailwind · Prisma · Video & Image Generation',
-                detailedDescription: 'AdAlchemist is an AI-powered marketing creative generation platform that converts product images and prompts into high-converting static and short-form video ads. Built as a full-stack system (React + Vite frontend, Node/Express backend, Prisma + PostgreSQL), it features instant generation, video motion synthesis, a credit-based economy, and an admin dashboard. Live demo available.',
-                tech: ['React', 'Tailwind CSS', 'Framer Motion', 'Node.js', 'Prisma', 'PostgreSQL', 'Redis'],
-                link: 'https://www.ad-alchemist.shop/',
-                linkLabel: 'Live →',
+// INTRO: short paragraphs under the name. **double asterisks** mark bold words.
+export const INTRO = [
+    "I'm Aditya, an **AI engineer** from Pune. I build **LLM apps**, **RAG pipelines** and **tools for AI coding agents**, and I care about the part most demos skip: making them **tested and measurable**.",
+    'I founded **OpenWave India**, where I maintain **ModelDiff** and **Veriflow**. Before that I was a research intern at **IIT Bombay (FOSSEE)**, and I have **3 papers in IEEE Xplore**.',
+    'I graduated from VIIT Pune in 2026 and start an **M.Sc. in Computer Science at the University of Stuttgart** in April 2027.',
+]
 
-            },
-            {
-                name: 'FORGE Strength & Performance',
-                icon: '/assets/gymdemo.png',
-                description: 'React · Vite · Tailwind CSS · Fitness Brand Site',
-                detailedDescription: 'Engineered gym website built around strength, performance, and recovery. Features a metric-driven hero section, training pillars, coach profiles, membership tiers, weekly schedule, testimonials, and clear inquiry calls-to-action for a premium fitness brand experience.',
-                tech: ['React', 'Vite', 'Tailwind CSS', 'Responsive UI'],
-                link: 'https://gym-website-demo-gamma.vercel.app/',
-                linkLabel: 'Live →',
-            },
-            {
-                name: 'XYZ Dental Care',
-                icon: '/assets/dental.png',
-                description: 'React · Tailwind CSS · Framer Motion',
-                detailedDescription: 'Modern dental clinic landing page featuring a premium healthcare UI with responsive layouts, smooth animations, service showcases, doctor profiles, testimonials, appointment call-to-actions, and a clean user experience. Designed as a professional business website template with a mobile-first approach.',
-                tech: ['React', 'Tailwind CSS', 'Framer Motion', 'React Icons'],
-                link: 'https://doc-portfoliodemo1.vercel.app/',
-                linkLabel: 'Live →',
-            },
-            {
-                name: 'XYZ Restaurant',
-                icon: '/assets/restaurant.png',
-                description: 'React · Tailwind CSS · Framer Motion',
-                detailedDescription: 'Luxury restaurant landing page inspired by modern fine dining aesthetics. Features an immersive hero section, featured dishes, menu showcase, chef introduction, reservation CTA, gallery, testimonials, elegant animations, and a fully responsive design optimized for all devices.',
-                tech: ['React', 'Tailwind CSS', 'Framer Motion', 'React Icons', 'Swiper.js'],
-                link: 'https://restaurant-template-demo2.vercel.app/',
-                linkLabel: 'Live →',
-            },
-            {
-                name: 'Online fitness coach',
-                icon: '/assets/marcusvance.png',
-                description: 'React · Vanilla CSS · Lucide Icons · AI Fitness Tools',
-                detailedDescription: 'High-converting online transformation coaching web app for elite fitness coaching. Features aggressive dark aesthetics, interactive Before/After comparison sliders, AI-powered macro and BMI metabolic calculators, 4-step intake qualification funnel, and embedded WhatsApp consultation booking.',
-                tech: ['React', 'Vite', 'Vanilla CSS', 'Lucide React', 'AI Calculators'],
-                link: 'https://online-coach-website-pmr2.vercel.app/',
-                linkLabel: 'Live →',
-            },
-        ],
-    },
+// ABOUT
+export const ABOUT = {
+    text: 'AI engineer from Pune. I care about the part most demos skip: making AI systems reliable, tested and measurable. Currently learning German (A2).',
+    pillars: [
+        { icon: 'build',  title: 'LLM apps and agents', line: 'Tool calling, structured outputs and Claude Code skills.' },
+        { icon: 'search', title: 'Retrieval',           line: 'RAG pipelines, embeddings and rerankers.' },
+        { icon: 'check',  title: 'Verification',        line: 'Tests, evals and regression checks for model changes.' },
+    ],
+    stack: ['Python', 'LLM APIs', 'RAG', 'Embeddings', 'Agents & tool calling', 'Structured outputs', 'FastAPI', 'React', 'TypeScript', 'pytest', 'Docker', 'GitHub Actions'],
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// HIGHLIGHTS — achievements (papers, blog, GitHub activity)
-// ─────────────────────────────────────────────────────────────────────────────
-export const HIGHLIGHTS = {
-    subtitle: 'A short snapshot of my research work, writing, and GitHub consistency.',
+// Groups for the filter above the project index
+export const PROJECT_GROUPS = [
+    { id: 'testing', label: 'Testing AI' },
+    { id: 'search',  label: 'Search and RAG' },
+    { id: 'media',   label: 'Documents, voice and vision' },
+]
 
-    github: {
-        profileUrl:            'https://github.com/AdityaWagh06',
-        fallbackContributions: '120+ (90d)',
-        fallbackCommits:       '80 recent',
-        fallbackStatus:        'Recent push activity available on GitHub profile.',
-    },
-
-    // Papers (kept concise for the Achievements section)
-    publications: [
-        {
-            venue:  'IEEE ICCUBEA 2025',
-            title:  'Contextual Filler Word Detection Using BERT & Prosodic Features',
-            footer: 'Published in IEEE Xplore · NLP · Speech Analysis',
-            link:   '#',
-        },
-        {
-            venue:  'IEEE INSPECT 2025',
-            title:  'AI Agent for Scientific Paper Analysis',
-            footer: 'Published in IEEE Xplore · AI Agents · LLMs',
-            link:   '#',
-        },
-        {
-            venue:  'APCIT 2025',
-            title:  'Robust Facial Expression Recognition with VGG16',
-            footer: 'Published in IEEE Xplore · Computer Vision · CNN',
-            link:   '#',
-        },
-        {
-            venue:  'ICRRAI 2025',
-            title:  'Bridging the Language Gap: Chatbots for Indian Languages — A Survey',
-            footer: 'Accepted · NLP · Multilingual',
-            link:   '#',
-        },
-    ],
-
-    achievements: [
-        {
-            id:          'ucsi-immersion',
-            title:       'Global Immersion Program at UCSI University, Malaysia',
-            period:      'Sept 2025',
-            description: 'Completed the Global Immersion Program at UCSI University, Malaysia.',
-            details: {
-                photo:        photo1,
-                photoAlt:     'Aditya Wagh at UCSI University, Malaysia',
-                certificates: [
-                    { name: 'AI-Driven Cybersecurity Tools', file: certDoc },
-                    { name: 'Data Privacy in AI Applications', file: certDoc },
-                    { name: 'AI in Ethical Decision-Making', file: certDoc },
-                ],
-            },
-        },
-        {
-            id:          'osdag-bridge',
-            title:       'Open-Source Contributor — Osdag Bridge (FOSSEE Project)',
-            period:      '2025',
-            description: 'Contributed to the open-source development of Osdag Bridge, an interdisciplinary civil engineering software for bridge analysis and design.',
-        },
-        {
-            id:          'cdac-drone',
-            title:       'CDAC UAV 5-Day Bootcamp on AI & Drone Systems',
-            period:      '2025',
-            description: 'Completed the CDAC UAV bootcamp with intensive training in AI-driven drone operations and autonomous systems.',
-            details: {
-                photo:        droneWorkshopImg,
-                photoAlt:     'Aditya Wagh during CDAC UAV AI and Drone Systems bootcamp',
-                certificates: [
-                    { name: 'AI-Driven Drone Operations', file: certDoc },
-                    { name: 'Autonomous Systems Fundamentals', file: certDoc },
-                    { name: 'UAV Mission Planning & Safety', file: certDoc },
-                ],
-            },
-        },
-        {
-            id:          'nss-volunteer',
-            title:       'National Service Scheme (NSS) Volunteer',
-            period:      '2024',
-            description: 'Served as an NSS volunteer for 1 year, participating in community service, social awareness drives, and outreach programs.',
-            details: {
-                photo:        nssLetterImg,
-                photoAlt:     'NSS appreciation letter',
-                certificates: [
-                    { name: 'NSS Appreciation Letter', file: nssLetterImg },
-                ],
-            },
-        },
-    ],
-
-    // Blog highlight
-    blog: {
-        url:         'https://medium.com/@adityawagh2525/766a12d3712e',
-        displayUrl:  'medium.com/@adityawagh2525',
-        title:       'Peter Thiel: The Billionaire Who Questions School',
-        description: 'Peter Thiel is one of Silicon Valley’s most influential and controversial thinkers. He is known less for following trends and more for questioning systems most people accept without doubt – including education.',
-        author:      'Aditya Wagh · Medium',
-    },
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// EXPERIENCE — professional experience timeline
-// ─────────────────────────────────────────────────────────────────────────────
-export const EXPERIENCE = [
+// PROJECTS: AI work only. The first one gets the big panel.
+export const PROJECTS = [
     {
-        role:     'Research Intern',
-        company:  'IIT Bombay – FOSSEE',
-        period:   'Oct 2025 – FEB 2026',
-        location: 'Mumbai, India',
-        type:     'Research Internship (Remote)',
-        color:    'from-violet-500 to-purple-600',
-        dot:      'bg-violet-500',
+        name:   'ModelDiff',
+        group:  'testing',
+        short:  'Shows what broke when you swap a local AI model.',
+        line:   'Regression testing for local AI. Runs one test suite against a baseline and a candidate model, quantization, prompt or runtime, and reports what broke, what got fixed and what only changed. Runs offline, no API keys.',
         points: [
-            'Contributed to Osdag Bridge, an open-source structural engineering software for bridge analysis and design, improving overall GUI usability and workflow clarity.',
-            'Improved UI responsiveness by ~15%: developed and optimized Python-based GUI modules using PySide6 (Qt), applying OOP, modular architecture, and software engineering best practices in collaboration with researchers and senior developers.',
+            'Six check types: exact, JSON Schema, classification, required fields, tool calls and custom',
+            'Separates regressions from fixes and harmless output changes',
+            'Text, Markdown or JSON reports, with exit codes for CI',
         ],
-        tags: ['Python', 'PySide6 (Qt)', 'OOP', 'Open Source', 'GUI Engineering'],
+        tags:   ['Python', 'Ollama', 'YAML suites', 'CI'],
+        org:    'OpenWave India',
+        panel:  'modeldiff',
+        link:   'https://github.com/OpenWave-India/modeldiff',
     },
     {
-        role:     'Project Developer Intern',
-        company:  'BigBuddy Foundation',
-        period:   'JAN 2025 – JUN 2025',
-        location: 'Pune, India',
-        type:     'Internship (Remote)',
-        color:    'from-blue-500 to-indigo-600',
-        dot:      'bg-blue-500',
-        points: [
-            'Built an end-to-end OCR-to-Excel automation pipeline using Tesseract OCR, OpenAI LLMs, and Python for intelligent document processing.',
-            'Reduced manual data entry time by ~50%: implemented reliable data extraction, cleaning, and structuring workflows to capture prices, product names, phone numbers, and addresses from scanned documents using NLP and AI-driven automation.',
-        ],
-        tags: ['Python', 'Tesseract OCR', 'OpenAI LLMs', 'NLP', 'Automation'],
+        name:   'Veriflow',
+        group:  'testing',
+        short:  'Makes AI coding agents prove their work is done.',
+        line:   'A verification skill for Claude Code. Makes the agent run your real tests, linters and builds before it says "done", and reports PASS, FAIL, BLOCKED or UNKNOWN with evidence.',
+        tags:   ['Python', 'Claude Code', 'Testing'],
+        org:    'OpenWave India',
+        panel:  'verdicts',
+        link:   'https://github.com/OpenWave-India/veriflow',
+    },
+    {
+        name:   'DocExtract Pro',
+        group:  'media',
+        short:  'Turns GST invoices into clean, checked data.',
+        line:   'GST invoices to structured data, with OCR and checksum validation.',
+        visual: 'docextract',
+        tags:   ['OpenAI', 'PaddleOCR', 'Flask'],
+        link:   'https://github.com/AdityaWagh06/Document-to-Excel',
+    },
+    {
+        name:   'RAGBench',
+        group:  'search',
+        short:  'Compares RAG setups on one fixed dataset.',
+        line:   'Compares chunking, embeddings and rerankers on one fixed dataset.',
+        visual: 'ragbench',
+        tags:   ['RAG', 'FAISS', 'pytest'],
+        status: 'In progress',
+        link:   'https://github.com/AdityaWagh06/RAGBench-RAG-Evaluation-Optimization-Framework',
+    },
+    {
+        name:   'NeuroCode AI',
+        group:  'search',
+        short:  'Code search that understands your repo.',
+        line:   'Tree-sitter parsing as the base for repo-aware code search.',
+        visual: 'neurocode',
+        tags:   ['Python', 'Tree-sitter'],
+        status: 'In progress',
+        link:   'https://github.com/AdityaWagh06/neurocode-ai',
+    },
+    {
+        name:   'NeuroQuery',
+        group:  'search',
+        short:  'Ask a database in plain English or by voice.',
+        line:   'Plain English or voice to SQL. 96% intent accuracy in my evaluation.',
+        visual: 'neuroquery',
+        tags:   ['scikit-learn', 'Flask', 'React'],
+        link:   'https://github.com/AdityaWagh06/Neuroquery-ai-query-assistant',
+    },
+    {
+        name:   'NewsGenie',
+        group:  'media',
+        short:  'Short news summaries, picked for your interests.',
+        line:   'BART news summaries with interest-based recommendations.',
+        visual: 'newsgenie',
+        tags:   ['BART', 'Flask', 'Supabase'],
+        link:   'https://github.com/AdityaWagh06/News-genie',
+    },
+    {
+        name:   'Blind Reader',
+        group:  'media',
+        short:  'Describes photos out loud for blind users.',
+        line:   'Describes images out loud with BLIP, T5 and Bark.',
+        visual: 'blindreader',
+        tags:   ['BLIP', 'T5', 'Bark'],
+        link:   'https://github.com/AdityaWagh06/Blind_reader_app',
     },
 ]
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CONTACT — contact section
-// ─────────────────────────────────────────────────────────────────────────────
+// ORGANISATIONS: where I have worked, contributed or studied, newest first
+export const ORGS = [
+    { name: 'OpenWave India',      mark: 'OW', role: 'Founder',                  period: 'Oct 2026 – present', line: 'Open-source developer tools for AI that run locally and are properly tested. Maintains ModelDiff and Veriflow.', link: 'https://github.com/OpenWave-India', tags: ['Python', 'Ollama', 'Claude Code', 'pytest'] },
+    { name: 'openapi / gknowledge', mark: 'GK', role: 'Open-source contributor', period: 'Oct 2026',           line: 'Merged PR #46: discovery of local Ollama models.', link: 'https://github.com/openapi/gknowledge/pull/46', tags: ['Python', 'Ollama'] },
+    { name: 'Nailed It Bro',       mark: 'NB', role: 'Co-founder',               period: 'May 2026 – present', line: 'Studio for AI automations and web apps.', link: 'https://www.naileditbro.com/', tags: ['React', 'Next.js', 'Automations'] },
+    { name: 'IIT Bombay · FOSSEE', mark: 'IB', role: 'Research Intern',          period: 'Dec 2025 – Feb 2026', line: 'Python and PySide6 modules for Osdag Bridge, the bridge design module of Osdag.', tags: ['Python', 'PySide6'] },
+    { name: 'BigBuddy Foundation', mark: 'BB', role: 'Project Developer Intern', period: 'Jan – Jun 2025',     line: 'OCR and LLM document pipeline that cut manual work by about 70%.', tags: ['Python', 'OCR', 'LLM APIs'] },
+]
+
+export const EDUCATION = [
+    { name: 'University of Stuttgart', mark: 'US', role: 'M.Sc. Computer Science', period: 'From April 2027', line: 'Elective focus: Autonomous Systems.' },
+    { name: 'VIIT Pune',               mark: 'VI', role: 'B.Tech CSE (AI & ML)',   period: '2022 – 2026',     line: 'Graduated with a CGPA of 8.42.' },
+]
+
+// PAPERS
+export const PAPERS = [
+    { title: 'Contextual Filler Word Detection using BERT and Prosodic Features', venue: 'ICCUBEA 2025', status: 'IEEE Xplore' },
+    { title: 'AI Agent for Scientific Paper Analysis', venue: 'INSPECT 2025', status: 'IEEE Xplore' },
+    { title: 'Robust Facial Expression Recognition with VGG16', venue: 'APCIT 2025', status: 'IEEE Xplore' },
+    { title: 'Bridging the Language Gap: Open-Source Chatbots for Indian Languages', venue: 'ICRRAI 2025', status: 'Accepted' },
+]
+
+// CONTACT
 export const CONTACT = {
-    subtitle:    "I'd love to hear from you! If you have any questions, collaboration ideas, or opportunities, please use the form below.",
-    formSubject: 'Aditya Wagh Portfolio - New form Submission',
-    fromName:    'Portfolio Contact Form',
+    title:       'Let\'s build something reliable.',
+    text:        'Hiring for an AI or software engineering role, or have an open-source idea? Email is fastest.',
+    formSubject: 'Portfolio: new message',
+    fromName:    'Portfolio contact form',
+}
+
+// FREELANCE PAGE (/freelance): websites and products for businesses
+export const FREELANCE = {
+    title: 'Freelance',
+    line:  'Websites and web apps for small businesses, built on my own and through Nailed It Bro.',
+    services: ['Business websites', 'Web apps & dashboards', 'Automations'],
+    items: [
+        { name: 'A to Z Education',     note: 'Live EdTech platform',        image: '/assets/atoz.png',            tech: 'React · Node · Supabase · Razorpay', link: 'https://atozeducation.study' },
+        { name: 'Saachi Skincare',      note: 'Dermatology clinic',          image: '/assets/saachi-skincare.png', tech: 'Next.js · Tailwind',                 link: 'https://saachi-skincare.vercel.app/' },
+        { name: 'CraveCraft Cafe',      note: 'Cafe and roastery, Pune',     image: '/assets/cafe-demo-2.png',     tech: 'Next.js · Tailwind',                 link: 'https://cravecraft-cafe-pune.vercel.app/' },
+        { name: 'AdAlchemist',          note: 'AI ad creative generator',    image: '/assets/alchemist.png',       tech: 'React · Node · Prisma',              link: 'https://www.ad-alchemist.shop/' },
+        { name: 'FORGE Strength',       note: 'Gym website (demo)',          image: '/assets/gymdemo.png',         tech: 'React · Vite · Tailwind',            link: 'https://gym-website-demo-gamma.vercel.app/' },
+        { name: 'Dental clinic',        note: 'Clinic landing page (demo)',  image: '/assets/dental.png',          tech: 'React · Tailwind',                   link: 'https://doc-portfoliodemo1.vercel.app/' },
+        { name: 'Restaurant',           note: 'Fine dining site (demo)',     image: '/assets/restaurant.png',      tech: 'React · Tailwind',                   link: 'https://restaurant-template-demo2.vercel.app/' },
+        { name: 'Online fitness coach', note: 'Coaching site (demo)',        image: '/assets/marcusvance.png',     tech: 'React · Vite',                       link: 'https://online-coach-website-pmr2.vercel.app/' },
+    ],
+    cta: 'Need a website for your business?',
 }
