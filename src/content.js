@@ -16,12 +16,11 @@ export const SITE = {
     web3formsKey: 'e37a6ac1-322f-43bd-88d2-cbcb8c07bfe2',
     profileImg,
     resume,
-    // Banner video at the top of the page (file in public/). Set to null to show the
-    // designed ModelDiff banner instead.
-    bannerVideo:  '/banner.mp4',
-    bannerPoster: '/banner-poster.jpg',
-    // Animated image used when a device refuses to autoplay video (e.g. iPhone Low Power Mode)
+    // Banner at the top of the page: Aditya's animated clip (from his GIF, stored as
+    // animated WebP at a quarter of the size) shown over a still frame while it loads.
+    // Set to null to show the designed ModelDiff banner instead.
     bannerAnimated: '/banner.webp',
+    bannerPoster:   '/banner-poster.jpg',
 }
 
 // NAV (main page)
