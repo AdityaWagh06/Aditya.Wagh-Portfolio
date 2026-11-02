@@ -10,48 +10,18 @@ Personal portfolio website built with React, Vite, and Tailwind CSS. All content
 
 | Tool | Purpose |
 |---|---|
-| React 19 + Vite 7 | UI framework & build tool |
-| Tailwind CSS 3 | Utility-first styling |
-| Lenis | Smooth scroll |
-| Framer Motion | Animations |
-| Three.js / R3F | 3D elements |
-| Vercel | Hosting & CI/CD |
+| React 19 + Vite 7 | UI and build |
+| Tailwind CSS 3 | Styling (colour tokens in `src/index.css`) |
+| Vercel | Hosting |
 
 ---
 
-## Sections
+## Pages
 
-- **Header** — Hero with name, bio, resume download
-- **About** — Photo strip with cursor-tracking scroll, bio, stats, tools
-- **Experience** — Scroll-driven animated timeline with traveling avatar dot
-- **Skills** — Expandable inline skill drawers per category
-- **Projects** — Flip cards with detailed back face, show more/less
-- **Highlights** — Key achievements
-- **Contact** — Web3Forms contact form
+- `/` AI portfolio: title card, character sheet, projects, organisations, papers, contact
+- `/freelance` websites and web apps built for businesses
 
----
-
-## Project Structure
-
-```
-src/
-├── content.js          ← single source of truth for ALL content
-├── App.jsx
-├── main.jsx
-├── index.css
-├── assets/
-└── components/
-    ├── Header.jsx
-    ├── Navbar.jsx
-    ├── About.jsx
-    ├── Experience.jsx
-    ├── Services.jsx    (Skills)
-    ├── Work.jsx        (Projects)
-    ├── Highlights.jsx
-    ├── Contact.jsx
-    ├── Footer.jsx
-    └── LenisScroll.jsx
-```
+All text and links live in `src/content.js`.
 
 ---
 
