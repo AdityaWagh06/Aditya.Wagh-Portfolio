@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SITE } from '../../content'
 import { reduced } from './hooks'
 
@@ -11,6 +11,46 @@ const LINES = [
     ['9 cases · 4 regressed · 1 fixed', 'text-white/45'],
 ]
 const FULL = LINES.reduce((n, [t]) => n + t.length, 0)
+
+// A video that behaves like a moving background image: muted, looping, no controls,
+// can't be clicked, opened full screen, cast or picture-in-pictured, and restarts
+// itself if the browser pauses it (tab switch, iOS low-power pause, etc.).
+function BackgroundVideo() {
+    const ref = useRef(null)
+    useEffect(() => {
+        const v = ref.current
+        if (!v) return
+        // React doesn't write the muted attribute, and iOS only autoplays muted video.
+        v.muted = true
+        v.defaultMuted = true
+        v.setAttribute('muted', '')
+        v.setAttribute('webkit-playsinline', '')
+        const play = () => { if (v.paused && document.visibilityState === 'visible') v.play().catch(() => {}) }
+        play()
+        v.addEventListener('pause', play)
+        v.addEventListener('canplay', play)
+        document.addEventListener('visibilitychange', play)
+        return () => {
+            v.removeEventListener('pause', play)
+            v.removeEventListener('canplay', play)
+            document.removeEventListener('visibilitychange', play)
+        }
+    }, [])
+    return (
+        <>
+            <video
+                ref={ref} src={SITE.bannerVideo} poster={SITE.bannerPoster}
+                autoPlay muted loop playsInline preload="auto" controls={false}
+                disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback"
+                tabIndex={-1} aria-hidden="true"
+                onContextMenu={(e) => e.preventDefault()}
+                className="bg-video absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none"
+            />
+            {/* Sits over the video so taps and long-presses never reach it. */}
+            <div className="absolute inset-0" aria-hidden="true" onContextMenu={(e) => e.preventDefault()} />
+        </>
+    )
+}
 
 // Banner at the top of the page. Plays SITE.bannerVideo when one is set;
 // until then it types out an example ModelDiff run, on a loop.
@@ -28,7 +68,7 @@ export default function Banner() {
     return (
         <div className="reveal relative aspect-[16/6.4] sm:aspect-[16/5.9] rounded-[16px] overflow-hidden border border-line bg-[#0b0c10]">
             {SITE.bannerVideo ? (
-                <video src={SITE.bannerVideo} poster={SITE.bannerPoster} autoPlay muted loop playsInline preload="auto" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover object-top" />
+                <BackgroundVideo />
             ) : (
                 <div aria-hidden="true" className="absolute inset-0">
                     <div className="absolute inset-0 banner-grid" />
