@@ -18,7 +18,7 @@ function AnimatedBanner() {
     return (
         <>
             <img
-                src={SITE.bannerAnimated} alt="" draggable="false"
+                src={SITE.bannerAnimated} alt="" draggable="false" decoding="async" fetchPriority="high"
                 style={{ backgroundImage: `url(${SITE.bannerPoster})` }}
                 className="absolute inset-0 w-full h-full object-cover object-top bg-cover bg-top pointer-events-none select-none"
             />
