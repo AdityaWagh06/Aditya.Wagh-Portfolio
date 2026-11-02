@@ -20,6 +20,8 @@ export const SITE = {
     // designed ModelDiff banner instead.
     bannerVideo:  '/banner.mp4',
     bannerPoster: '/banner-poster.jpg',
+    // Animated image used when a device refuses to autoplay video (e.g. iPhone Low Power Mode)
+    bannerAnimated: '/banner.webp',
 }
 
 // NAV (main page)
