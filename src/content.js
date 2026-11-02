@@ -16,9 +16,10 @@ export const SITE = {
     web3formsKey: 'e37a6ac1-322f-43bd-88d2-cbcb8c07bfe2',
     profileImg,
     resume,
-    // Banner at the top of the page: a 5-second seamless loop of Aditya's clip
-    // (animated WebP, 1000x390, 24 fps, 3.7 MB) shown over a still frame while it loads.
-    // Set to null to show the designed ModelDiff banner instead.
+    // Banner at the top of the page: a 5-second seamless loop of Aditya's clip.
+    // Plays as a muted background video (smooth, 1.5 MB); if a device won't
+    // autoplay video, the same loop plays as an animated image instead.
+    bannerVideo:    '/banner.mp4',
     bannerAnimated: '/banner.webp',
     bannerPoster:   '/banner-poster.jpg',
 }
