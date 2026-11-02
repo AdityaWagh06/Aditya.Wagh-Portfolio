@@ -17,6 +17,10 @@ const FULL = LINES.reduce((n, [t]) => n + t.length, 0)
 // itself if the browser pauses it (tab switch, iOS low-power pause, etc.).
 function BackgroundVideo() {
     const ref = useRef(null)
+    // Some devices refuse to autoplay any video (iPhone Low Power Mode, data savers).
+    // Then we switch to an animated image of the same clip, which always plays.
+    const [fallback, setFallback] = useState(false)
+
     useEffect(() => {
         const v = ref.current
         if (!v) return
@@ -25,28 +29,38 @@ function BackgroundVideo() {
         v.defaultMuted = true
         v.setAttribute('muted', '')
         v.setAttribute('webkit-playsinline', '')
-        const play = () => { if (v.paused && document.visibilityState === 'visible') v.play().catch(() => {}) }
+        const play = () => {
+            if (!v.paused || document.visibilityState !== 'visible') return
+            v.play().catch((e) => { if (e?.name === 'NotAllowedError') setFallback(true) })
+        }
         play()
+        // If nothing has played a few seconds after loading, autoplay is being blocked.
+        const check = setTimeout(() => { if (v.currentTime === 0 && v.readyState >= 2) setFallback(true) }, 3500)
         v.addEventListener('pause', play)
         v.addEventListener('canplay', play)
         document.addEventListener('visibilitychange', play)
         return () => {
+            clearTimeout(check)
             v.removeEventListener('pause', play)
             v.removeEventListener('canplay', play)
             document.removeEventListener('visibilitychange', play)
         }
     }, [])
+
     return (
         <>
-            <video
-                ref={ref} src={SITE.bannerVideo} poster={SITE.bannerPoster}
-                autoPlay muted loop playsInline preload="auto" controls={false}
-                disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback"
-                tabIndex={-1} aria-hidden="true"
-                onContextMenu={(e) => e.preventDefault()}
-                className="bg-video absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none"
-            />
-            {/* Sits over the video so taps and long-presses never reach it. */}
+            {fallback ? (
+                <img src={SITE.bannerAnimated} alt="" draggable="false" className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none" />
+            ) : (
+                <video
+                    ref={ref} src={SITE.bannerVideo} poster={SITE.bannerPoster}
+                    autoPlay muted loop playsInline preload="auto" controls={false}
+                    disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback"
+                    tabIndex={-1} aria-hidden="true"
+                    className="bg-video absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none"
+                />
+            )}
+            {/* Sits over the banner so taps and long-presses never reach it. */}
             <div className="absolute inset-0" aria-hidden="true" onContextMenu={(e) => e.preventDefault()} />
         </>
     )
