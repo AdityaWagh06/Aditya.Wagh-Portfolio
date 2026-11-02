@@ -1,23 +1,35 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aditya.Wagh</title>
+    <title>Aditya Wagh · AI Engineer</title>
+    <meta name="description" content="Aditya Wagh, AI engineer building LLM apps, RAG and AI agents. Ex-Research Intern at IIT Bombay (FOSSEE), 3 IEEE Xplore papers, founder of OpenWave India." />
+    <meta name="author" content="Aditya Wagh" />
+    <link rel="canonical" href="https://adityawagh.online/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://adityawagh.online/" />
+    <meta property="og:title" content="Aditya Wagh · AI Engineer" />
+    <meta property="og:description" content="AI engineer from Pune building LLM apps, RAG pipelines and tooling for AI coding agents. Starting an M.Sc. at the University of Stuttgart in April 2027." />
+    <meta name="theme-color" content="#000000" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@adityawagh_94" />
     <script>
       (() => {
-        const savedTheme = localStorage.theme;
-        if (savedTheme === 'light') return;
-        localStorage.theme = 'dark';
-        document.documentElement.classList.add('dark');
+        let theme = null;
+        try { theme = localStorage.getItem('theme'); } catch (e) {}
+        if (!theme) theme = 'dark';
+        if (theme === 'dark') document.documentElement.classList.add('dark');
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Ovo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Silkscreen&display=swap" rel="stylesheet">
   </head>
-  <body class="overflow-x-hidden font-Outfit leading-8 bg-black text-white dark:bg-darkTheme dark:text-white">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
