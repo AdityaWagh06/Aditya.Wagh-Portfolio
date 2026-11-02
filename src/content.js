@@ -16,8 +16,8 @@ export const SITE = {
     web3formsKey: 'e37a6ac1-322f-43bd-88d2-cbcb8c07bfe2',
     profileImg,
     resume,
-    // Banner at the top of the page: Aditya's animated clip (from his GIF, stored as
-    // animated WebP at a quarter of the size) shown over a still frame while it loads.
+    // Banner at the top of the page: a 5-second seamless loop of Aditya's clip
+    // (animated WebP, 1000x390, 24 fps, 3.7 MB) shown over a still frame while it loads.
     // Set to null to show the designed ModelDiff banner instead.
     bannerAnimated: '/banner.webp',
     bannerPoster:   '/banner-poster.jpg',
