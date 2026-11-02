@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SITE } from '../../content'
 import { reduced } from './hooks'
 
@@ -12,29 +12,63 @@ const LINES = [
 ]
 const FULL = LINES.reduce((n, [t]) => n + t.length, 0)
 
-// Animated banner image: plays like a live wallpaper on every device, with
-// nothing to tap, pause or open.
+// Live-wallpaper banner. A muted, looping background video is smoothest, but some
+// devices refuse to autoplay video (iPhone Low Power Mode, data savers, some
+// embedded browsers). If the video hasn't actually started moving within a couple
+// of seconds, the same loop is shown as an animated image instead.
 function AnimatedBanner() {
+    const ref = useRef(null)
+    const [fallback, setFallback] = useState(false)
+
+    useEffect(() => {
+        const v = ref.current
+        if (!v) return
+        // React doesn't write the muted attribute, and iOS only autoplays muted video.
+        v.muted = true
+        v.defaultMuted = true
+        v.setAttribute('muted', '')
+        v.setAttribute('webkit-playsinline', '')
+        const play = () => {
+            if (!v.paused || document.visibilityState !== 'visible') return
+            v.play().catch(() => setFallback(true))
+        }
+        play()
+        const check = setTimeout(() => { if (v.currentTime < 0.1) setFallback(true) }, 2500)
+        v.addEventListener('pause', play)
+        document.addEventListener('visibilitychange', play)
+        return () => {
+            clearTimeout(check)
+            v.removeEventListener('pause', play)
+            document.removeEventListener('visibilitychange', play)
+        }
+    }, [])
+
+    const cover = 'absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none'
     return (
         <>
-            <img
-                src={SITE.bannerAnimated} alt="" draggable="false" decoding="async" fetchPriority="high"
-                style={{ backgroundImage: `url(${SITE.bannerPoster})` }}
-                className="absolute inset-0 w-full h-full object-cover object-top bg-cover bg-top pointer-events-none select-none"
-            />
+            {fallback ? (
+                <img src={SITE.bannerAnimated} alt="" draggable="false" style={{ backgroundImage: `url(${SITE.bannerPoster})` }} className={`${cover} bg-cover bg-top`} />
+            ) : (
+                <video
+                    ref={ref} src={SITE.bannerVideo} poster={SITE.bannerPoster}
+                    autoPlay muted loop playsInline preload="auto" controls={false}
+                    disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback"
+                    tabIndex={-1} aria-hidden="true" className={`bg-video ${cover}`}
+                />
+            )}
             {/* Sits over the banner so taps and long-presses never reach it. */}
             <div className="absolute inset-0" aria-hidden="true" onContextMenu={(e) => e.preventDefault()} />
         </>
     )
 }
 
-// Banner at the top of the page. Plays SITE.bannerAnimated when one is set;
+// Banner at the top of the page. Plays SITE.bannerVideo when one is set;
 // until then it types out an example ModelDiff run, on a loop.
 export default function Banner() {
     const [n, setN] = useState(reduced() ? FULL : 0)
 
     useEffect(() => {
-        if (SITE.bannerAnimated || reduced()) return
+        if (SITE.bannerVideo || reduced()) return
         const done = n >= FULL
         const id = setTimeout(() => setN(done ? 0 : n + (n < LINES[0][0].length ? 1 : 3)), done ? 3200 : n === 0 ? 600 : 28)
         return () => clearTimeout(id)
@@ -43,7 +77,7 @@ export default function Banner() {
     let left = n
     return (
         <div className="reveal relative aspect-[16/6.4] sm:aspect-[16/5.9] rounded-[16px] overflow-hidden border border-line bg-[#0b0c10]">
-            {SITE.bannerAnimated ? (
+            {SITE.bannerVideo ? (
                 <AnimatedBanner />
             ) : (
                 <div aria-hidden="true" className="absolute inset-0">

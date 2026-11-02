@@ -175,3 +175,8 @@
 .gh-1 { background: #fbe1b6; } .gh-2 { background: #f6b85a; } .gh-3 { background: #e08a1e; } .gh-4 { background: #a85a0a; }
 .dark .gh-1 { background: #3d2508; } .dark .gh-2 { background: #7a4610; } .dark .gh-3 { background: #c47318; } .dark .gh-4 { background: #f5a83c; }
 
+
+/* Banner video is decoration only: hide every built-in control, including iOS's play button */
+.bg-video::-webkit-media-controls,
+.bg-video::-webkit-media-controls-start-playback-button,
+.bg-video::-webkit-media-controls-overlay-play-button { display: none !important; -webkit-appearance: none; }
