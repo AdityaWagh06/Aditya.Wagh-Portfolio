@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const token = (name) => `rgb(var(--${name}) / <alpha-value>)`
+
 export default {
   content: [
     "./index.html",
@@ -6,32 +8,25 @@ export default {
   ],
   theme: {
     extend: {
-      gridTemplateColumns: {
-        'auto': 'repeat(auto-fit, minmax(200px, 1fr))'
-      },
       fontFamily: {
-        Outfit: ["Outfit", "sans-serif"],
-        Ovo: ["Ovo", "serif"]
-      },
-      animation: {
-        spin_slow: 'spin 6s linear infinite',
-        photoScroll: 'photoScroll 20s linear infinite',
-      },
-      keyframes: {
-        photoScroll: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
+        sans: ['Geist', 'system-ui', 'sans-serif'],
+        mono: ['"Geist Mono"', 'ui-monospace', 'monospace'],
       },
       colors: {
-        lightHover: '#fcf4ff',
-        darkHover: '#2a004a',
-        darkTheme: '#11001F'
+        bg: token('bg'),
+        surface: token('surface'),
+        raised: token('raised'),
+        fg: token('fg'),
+        muted: token('muted'),
+        line: token('line'),
+        accent: token('accent'),
+        ok: token('ok'),
+        warn: token('warn'),
+        bad: token('bad'),
       },
-      boxShadow: {
-        'black': '4px 4px 0 #000',
-        'white': '4px 4px 0 #fff',
-      }
+      maxWidth: {
+        page: '70rem',
+      },
     },
   },
   darkMode: 'selector',
